@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast, Toaster } from 'sonner';
 import {
   Beaker,
@@ -222,13 +223,72 @@ export default function ChemistryLearning() {
     {
       id: 1,
       title: 'أساسيات الذرة ومكوناتها',
-      content: `الذرة هي أصغر وحدة في المادة تحتفظ بخصائص العنصر الكيميائي. تتكون الذرة من نواة مركزية تحتوي على البروتونات موجبة الشحنة والنيوترونات عديمة الشحنة، وحول النواة تدور الإلكترونات سالبة الشحنة في مدارات إلكترونية.
+      content: `الذرة هي أصغر وحدة في المادة تحتفظ بخصائص العنصر الكيميائي. تعتبر الذرة الوحدة الأساسية للمادة والبناء الأولي لجميع العناصر الكيميائية.
 
-العدد الذري يساوي عدد البروتونات في النواة، وهو الذي يحدد نوع العنصر. الكتلة الذرية هي مجموع عدد البروتونات والنيوترونات في النواة.
+## التركيب الداخلي للذرة
 
-الإلكترونات تترتب في مستويات طاقة مختلفة حول النواة، ويمكن أن تحتوي كل مدار على عدد محدد من الإلكترونات. المدار الأول يحتوي على إلكترونين كحد أقصى، والثاني على 8 إلكترونات، والثالث على 18 إلكترون.
+### النواة الذرية (Nucleus)
+تقع النواة في مركز الذرة وتحتوي على:
+• **البروتونات (Protons)**: جسيمات موجبة الشحنة (+1)
+• **النيوترونات (Neutrons)**: جسيمات عديمة الشحنة (0)
+• النواة تحتوي على 99.9% من كتلة الذرة
+• قطر النواة حوالي 10⁻¹⁵ متر
 
-هذا التوزيع الإلكتروني يحدد الخصائص الكيميائية للعنصر وقدرته على التفاعل مع العناصر الأخرى.`,
+### الإلكترونات (Electrons)
+• جسيمات سالبة الشحنة (-1)
+• تدور حول النواة في مدارات إلكترونية
+• كتلتها أصغر بحوالي 1836 مرة من البروتون
+• تحدد الخصائص الكيميائية للعنصر
+
+## الأعداد الذرية المهمة
+
+### العدد الذري (Atomic Number - Z)
+• يساوي عدد البروتونات في النواة
+• يحدد نوع العنصر الكيميائي
+• مثال: الهيدروجين Z=1، الكربون Z=6
+
+### العدد الكتلي (Mass Number - A)
+• مجموع عدد البروتونات والنيوترونات
+• A = Z + N (حيث N = عدد النيوترونات)
+• مثال: الكربون-12 له 6 بروتونات و 6 نيوترونات
+
+### النظائر (Isotopes)
+• ذرات لنفس العنصر بأعداد مختلفة من النيوترونات
+• لها نفس العدد الذري لكن عدد كتلي مختلف
+• مثال: الكربون-12 والكربون-14
+
+## المدارات الإلكترونية
+
+### قواعد توزيع الإلكترونات
+1. **المدار الأول (K)**: يحتوي على 2 إلكترون كحد أقصى
+2. **المدار الثاني (L)**: يحتوي على 8 إلكترونات كحد أقصى
+3. **المدار الثالث (M)**: يحتوي على 18 إلكترون كحد أقصى
+4. **المدار الرابع (N)**: يحتوي على 32 إلكترون كحد أقصى
+
+### قاعدة الثمانية (Octet Rule)
+• الذرات تميل لامتلاك 8 إلكترونات في المدار الخارجي
+• هذا يجعلها مستقرة كيميائياً
+• الاستثناء: الهيدروجين والهيليوم (قاعدة الاثنين)
+
+## أهمية فهم التركيب الذري
+
+### في الكيمياء
+• فهم كيفية تكوين الروابط الكيميائية
+• التنبؤ بخصائص العناصر
+• تفسير السلوك الكيميائي للمواد
+
+### في التطبيقات العملية
+• الطب النووي والعلاج الإشعاعي
+• توليد الطاقة النووية
+• تحديد عمر الآثار بالكربون المشع
+• صناعة أشباه الموصلات
+
+## خلاصة المفاهيم الرئيسية
+1. الذرة تتكون من نواة ونظام من الإلكترونات
+2. النواة تحتوي على البروتونات والنيوترونات
+3. العدد الذري يحدد هوية العنصر
+4. توزيع الإلكترونات يحدد الخصائص الكيميائية
+5. النظائر هي أشكال مختلفة لنفس العنصر`,
       summary: 'الذرة تتكون من نواة تحتوي على بروتونات ونيوترونات، وإلكترونات تدور حولها في مدارات. العدد الذري يحدد نوع العنصر.',
       quiz: [
         {
@@ -385,10 +445,286 @@ export default function ChemistryLearning() {
         }
       ],
       createdAt: new Date().toLocaleDateString('ar')
+    },
+    {
+      id: 6,
+      title: 'العناصر الانتقالية وخصائصها',
+      content: `العناصر الانتقالية تشغل الجزء المركزي من الجدول الدوري وتضم المجموعات 3-12. تتميز هذه العناصر بخصائص فريدة تجعلها مهمة جداً في الصناعة والتطبيقات التقنية.
+
+## الخصائص العامة للعناصر الانتقالية
+
+### الخصائص الفيزيائية
+• **الصلابة العالية**: معظم العناصر الانتقالية صلبة وقوية
+• **اللمعان الفلزي**: تتميز بلمعان معدني مميز
+• **التوصيل العالي**: توصل الحرارة والكهرباء بشكل ممتاز
+• **نقاط انصهار وغليان عالية**: عادة ما تكون أعلى من الفلزات الأخرى
+• **القابلية للطرق والسحب**: يمكن تشكيلها بسهولص
+
+### الخصائص الكيميائية
+• **أرقام أكسدة متعددة**: يمكنها تكوين عدة أرقام أكسدة مختلفة
+• **تكوين مركبات ملونة**: عديد من مركباتها ملونة
+• **النشاط الحفزي**: يمكنها أن تعمل كحفاز في التفاعلات الكيميائية
+• **تكوين معقدات مع الليجاندات**: تشكل مركبات معقدة مع الجزيئات الأخرى
+
+## العناصر الانتقالية المهمة
+
+### الحديد (Iron - Fe)
+• **العدد الذري**: 26
+• **أرقام الأكسدة**: +2 و +3 (الأكثر شيوعاً)
+• **الاستخدامات**:
+  - صناعة الصلب والفولاذ
+  - صناعة السيارات والطائرات
+  - البناء والإنشاءات
+  - نقل الأكسجين في الدم (الهيموجلوبين)
+
+### النحاس (Copper - Cu)
+• **العدد الذري**: 29
+• **أرقام الأكسدة**: +1 و +2
+• **الاستخدامات**:
+  - الأسلاك الكهربائية (موصل ممتاز)
+  - أنابيب المياه والغازات
+  - صناعة البرونز (مع القصدير)
+  - المجوهرات والعملات
+
+### الزنك (Zinc - Zn)
+• **العدد الذري**: 30
+• **رقم الأكسدة**: +2 (معظم المركبات)
+• **الاستخدامات**:
+  - طلاء المعادن (مقاومة الصدأ)
+  - صناعة البطاريات
+  - صناعة البراس (مع النحاس)
+  - مكملات غذائية (ضروري للجسم)
+
+### الفضة (Silver - Ag)
+• **العدد الذري**: 47
+• **رقم الأكسدة**: +1 (الأكثر شيوعاً)
+• **الاستخدامات**:
+  - المجوهرات والزينة
+  - العملات والاستثمار
+  - الإلكترونيات (أفضل موصل للكهرباء)
+  - مضاد للبكتيريا (في بعض التطبيقات)
+
+### الذهب (Gold - Au)
+• **العدد الذري**: 79
+• **أرقام الأكسدة**: +1 و +3
+• **الاستخدامات**:
+  - المجوهرات والزينة
+  - العملات والاستثمار
+  - الإلكترونيات الدقيقة (مقاوم للتآكل)
+  - طب الأسنان والجراحة
+
+## التطبيقات الصناعية
+
+### في صناعة السيارات
+• هياكل السيارى من الصلب (حديد + كربون)
+• حفازات العادم من البلاتين والروديوم
+• أنظمة التبريد من النحاس والألومنيوم
+
+### في التقنية
+• معالجات الأجهزة الإلكترونية
+• مغناطيس الأقراص الصلبة
+• شاشات الهواتف والحاسوب
+
+### في الطب
+• التصوير بالرنين المغناطيسي (MRI)
+• زرعات العظام والمفاصل
+• أجهزة تنظيم ضربات القلب
+
+## الأهمية الاقتصادية
+
+العناصر الانتقالية تشكل عمود الاقتصاد العالمي:
+• سوق الحديد والصلب يقدر بمليارات الدولارات
+• الذهب والفضة مخزن قيمة واستثمار
+• النحاس ضروري للبنية التحتية الكهربائية
+• بعض العناصر مثل البلاتين والروديوم أثمن من الذهب
+
+## مستقبل العناصر الانتقالية
+
+• **الطاقة المتجددة**: خلايا وقود الهيدروجين تحتاج عناصر انتقالية
+• **النانوتقنية**: استخدام جسيمات نانوية للعناصر الانتقالية
+• **الطب المتقدم**: علاج السرطان بالعناصر المشعة
+• **الفضاء**: مواد مقاومة للحرارة العالية
+
+## خلاصة المفاهيم الرئيسية
+
+1. العناصر الانتقالية تقع في وسط الجدول الدوري
+2. تتميز بخصائص فيزيائية وكيميائية مميزة
+3. الحديد والنحاس والزنك من أهم العناصر صناعياً
+4. الذهب والفضة لهما قيمة اقتصادية عالية
+5. تلعب دوراً مهماً في التقنيات الحديثة`,
+      summary: 'العناصر الانتقالية تشغل وسط الجدول الدوري وتتميز بالصلابة واللمعان والتوصيل العالي. الحديد والنحاس والزنك مهمة صناعياً.',
+      quiz: [
+        {
+          question: 'في أي مجموعات تقع العناصر الانتقالية؟',
+          options: ['1-2', '3-12', '13-18', '1-18'],
+          correct: 1
+        },
+        {
+          question: 'ما هو العنصر الأساسي في صناعة الصلب؟',
+          options: ['النحاس', 'الحديد', 'الزنك', 'الفضة'],
+          correct: 1
+        }
+      ],
+      createdAt: new Date().toLocaleDateString('ar')
+    },
+    {
+      id: 7,
+      title: 'تفاعلات الأكسدة والاختزال',
+      content: `تفاعلات الأكسدة والاختزال (Redox Reactions) هي من أهم التفاعلات الكيميائية وأكثرها شيوعاً في الطبيعة والصناعة. تتضمن هذه التفاعلات انتقال الإلكترونات بين المواد المتفاعلة.
+
+## المفاهيم الأساسية
+
+### تعريف الأكسدة والاختزال
+• **الأكسدة (Oxidation)**: عملية فقدان الإلكترونات
+• **الاختزال (Reduction)**: عملية كسب الإلكترونات
+• هذتان العمليتان تحدثان دائماً معاً في نفس التفاعل
+
+### أرقام الأكسدة (Oxidation Numbers)
+أرقام الأكسدة هي أرقام افتراضية تعبر عن عدد الإلكترونات التي يفقدها أو يكتسبها العنصر.
+
+#### قواعد حساب أرقام الأكسدة
+1. **العناصر الحرة**: رقم الأكسدة = 0
+   - مثال: H₂, O₂, N₂, Cl₂
+
+2. **الأيونات البسيطة**: رقم الأكسدة = شحنة الأيون
+   - مثال: Na⁺ (+1), Cl⁻ (-1), Mg²⁺ (+2)
+
+3. **الهيدروجين**: عادة +1 (ماعدا في الهيدريدات حيث يكون -1)
+
+4. **الأكسجين**: عادة -2 (ماعدا في البيروكسيدات حيث يكون -1)
+
+5. **مجموع أرقام الأكسدة**: يساوي الشحنة الإجمالية
+
+### أمثلة على حساب أرقام الأكسدة
+• **في H₂SO₄**:
+  - H: +1 × 2 = +2
+  - O: -2 × 4 = -8
+  - S: +6 (ليكون المجموع = 0)
+
+• **في NH₃**:
+  - H: +1 × 3 = +3
+  - N: -3 (ليكون المجموع = 0)
+
+## أنواع تفاعلات الأكسدة والاختزال
+
+### 1. تفاعلات الاحتراق
+هذه التفاعلات تتضمن اتحاد مادة مع الأكسجين:
+
+**مثال: احتراق الميثان**
+CH₄ + 2O₂ → CO₂ + 2H₂O
+• الكربون يتأكسد من -4 إلى +4
+• الأكسجين يختزل من 0 إلى -2
+
+### 2. تفاعلات الإزاحة
+تتضمن إزالة الأكسجين أو إضافة الهيدروجين:
+
+**مثال: اختزال أكسيد الحديد**
+Fe₂O₃ + 3CO → 2Fe + 3CO₂
+• الحديد يختزل من +3 إلى 0
+• الكربون يتأكسد من +2 إلى +4
+
+### 3. تفاعلات البطاريات
+تحويل الطاقة الكيميائية إلى طاقة كهربائية:
+
+**مثال: بطارية الزنك-الكربون**
+• القطب السالب: Zn → Zn²⁺ + 2e⁻ (أكسدة)
+• القطب الموجب: MnO₂ + 4H⁺ + 2e⁻ → Mn²⁺ + 2H₂O (اختزال)
+
+## وزن معادلات الأكسدة والاختزال
+
+### طريقة الذرة والإلكترون
+خطوات وزن المعادلة:
+
+1. **تحديد أرقام الأكسدة** لجميع العناصر
+2. **تحديد العناصر المؤكسدة والمختزلة**
+3. **كتابة نصف معادلات منفصلة**
+4. **وزن الذرات باستثناء H و O**
+5. **وزن ذرات الأكسجين بإضافة H₂O**
+6. **وزن ذرات الهيدروجين بإضافة H⁺**
+7. **وزن الشحنات بإضافة e⁻**
+8. **جعل عدد الإلكترونات متساوي**
+9. **جمع نصفي المعادلتين**
+
+### مثال عملي: تفاعل برمنجنات البوتاسيوم مع الحديد
+
+KMnO₄ + FeSO₄ + H₂SO₄ → MnSO₄ + Fe₂(SO₄)₃ + K₂SO₄ + H₂O
+
+**نصف معادلة الاختزال**:
+MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O
+
+**نصف معادلة الأكسدة**:
+Fe²⁺ → Fe³⁺ + e⁻
+
+**المعادلة الموزونة**:
+KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8H₂O
+
+## التطبيقات العملية
+
+### في الصناعة
+• **عمليات الطلاء الكهربائي**: اختزال أيونات الفلزات
+• **إنتاج الفلزات**: اختزال خامات الفلزات
+• **صناعة الورق**: استخدام مواد مبيضة مؤكسدة
+• **معالجة المياه**: الأوزون والكلور
+
+### في البيولوجيا
+• **التنفس الخلوي**: أكسدة الجلوكوز لإنتاج طاقة
+• **البناء الضوئي**: اختزال CO₂ لتكوين السكر
+• **نقل الأكسجين**: الهيموجلوبين في الدم
+
+### في البيئة
+• **دورة النيتروجين**: البكتيريا تحول بين أشكال النيتروجين
+• **تآكل المعادن**: أكسدة الحديد والفلزات الأخرى
+• **معالجة مياه الصرف**: إزالة الملوثات
+
+## العوامل المؤكسدة والمختزلة
+
+### العوامل المؤكسدة الشائعة
+• **الأكسجين (O₂)**: في الاحتراق
+• **برمنجنات البوتاسيوم (KMnO₄)**: في المعايرة
+• **ثنائي كرومات البوتاسيوم (K₂Cr₂O₇)**: في المعايرة
+• **بيروكسيد الهيدروجين (H₂O₂)**: في التطبيقات الطبية
+
+### العوامل المختزلة الشائعة
+• **الهيدروجين (H₂)**: في اختزال الفلزات
+• **أول أكسيد الكربون (CO)**: في صهر المعادن
+• **الفلزات النشطة**: مثل الزنك والماغنيسيوم
+• **بوروهيدريد الصوديوم (NaBH₄)**: في الكيمياء العضوية
+
+## أهمية وفوائد تفاعلات الأكسدة والاختزال
+
+• **إنتاج الطاقة**: في البطاريات وخلايا الوقود
+• **الحياة نفسها**: التنفس والبناء الضوئي
+• **الصناعة**: إنتاج الفلزات والمواد الكيميائية
+• **البيئة**: دورات العناصر ومعالجة النفايات
+• **الطب**: مضادات الأكسدة والعلاجات
+
+## خلاصة المفاهيم الرئيسية
+
+1. الأكسدة = فقدان إلكترونات، الاختزال = كسب إلكترونات
+2. أرقام الأكسدة تساعد في تحديد نوع التفاعل
+3. وزن المعادلات يتطلب معادلة الذرات والشحنات
+4. هذه التفاعلات أساسية للحياة والتكنولوجيا
+5. لها تطبيقات واسعة في الصناعة والبيئة والطب`,
+      summary: 'تفاعلات الأكسدة والاختزال تتضمن انتقال إلكترونات. الأكسدة = فقدان إلكترونات، الاختزال = كسب إلكترونات. لها تطبيقات مهمة في البطاريات والصناعة.',
+      quiz: [
+        {
+          question: 'ماذا يحدث للعنصر عند الأكسدة؟',
+          options: ['يكتسب إلكترونات', 'يفقد إلكترونات', 'يبقى دون تغيير', 'يزيد عدد البروتونات'],
+          correct: 1
+        },
+        {
+          question: 'ما هو رقم الأكسدة للهيدروجين في معظم المركبات؟',
+          options: ['-1', '0', '+1', '+2'],
+          correct: 2
+        }
+      ],
+      createdAt: new Date().toLocaleDateString('ar')
     }
   ]);
   const [currentLesson, setCurrentLesson] = useState({ title: '', content: '' });
   const [selectedElement, setSelectedElement] = useState<{category: string} | null>(null);
+  const [selectedLessonForView, setSelectedLessonForView] = useState<any | null>(null);
+  const [isLessonDialogOpen, setIsLessonDialogOpen] = useState(false);
 
   // تحميل تفضيل الوضع الداكن من localStorage
   useEffect(() => {
@@ -498,6 +834,12 @@ export default function ChemistryLearning() {
       ...prev,
       [section]: Math.min(prev[section] + increment, 100)
     }));
+  };
+
+  // دالة عرض تفاصيل الدرس
+  const viewLessonDetails = (lesson) => {
+    setSelectedLessonForView(lesson);
+    setIsLessonDialogOpen(true);
   };
 
   // دالة حفظ الدرس
@@ -669,7 +1011,7 @@ export default function ChemistryLearning() {
           }
         }}
       />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* شريط التنقل المحسن للأجهزة المحمولة */}
       <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3">
@@ -678,8 +1020,8 @@ export default function ChemistryLearning() {
             <div className="flex items-center gap-2">
               <FlaskConical className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400" />
               <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                <span className="hidden sm:inline">مختبر الكيمياء</span>
-                <span className="sm:hidden">الكيمياء</span>
+                <span className="hidden sm:inline">Chemistry Lab</span>
+                <span className="sm:hidden">Chemistry</span>
               </h1>
             </div>
 
@@ -700,13 +1042,13 @@ export default function ChemistryLearning() {
               
               <div className="flex gap-1">
                 {[
-                  { key: 'home', icon: Beaker, label: 'الرئيسية' },
-                  { key: 'elements', icon: Atom, label: 'العناصر' },
-                  { key: 'periodic-table', icon: Grid3x3, label: 'الجدول الدوري' },
-                  { key: 'compounds', icon: FlaskConical, label: 'المركبات' },
-                  { key: 'lessons', icon: BookOpen, label: 'الدروس' },
-                  { key: 'game', icon: Target, label: 'لعبة' },
-                  { key: 'quiz', icon: Award, label: 'اختبار' }
+                  { key: 'home', icon: Beaker, label: 'Home' },
+                  { key: 'elements', icon: Atom, label: 'Elements' },
+                  { key: 'periodic-table', icon: Grid3x3, label: 'Periodic Table' },
+                  { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
+                  { key: 'lessons', icon: BookOpen, label: 'Lessons' },
+                  { key: 'game', icon: Target, label: 'Game' },
+                  { key: 'quiz', icon: Award, label: 'Quiz' }
                 ].map(({ key, icon: Icon, label }) => (
                   <Button
                     key={key}
@@ -746,17 +1088,17 @@ export default function ChemistryLearning() {
                   <div className="flex flex-col gap-4 mt-6">
                     <div className="flex items-center gap-2 pb-4 border-b">
                       <FlaskConical className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                      <span className="text-lg font-bold">مختبر الكيمياء</span>
+                      <span className="text-lg font-bold">Chemistry Lab</span>
                     </div>
                     
                     {[
-                      { key: 'home', icon: Beaker, label: 'الصفحة الرئيسية', desc: 'البداية والمعلومات العامة' },
-                      { key: 'elements', icon: Atom, label: 'العناصر الكيميائية', desc: 'الجدول الدوري والتكافؤات' },
-                      { key: 'periodic-table', icon: Grid3x3, label: 'الجدول الدوري التفاعلي', desc: 'جدول كامل بجميع العناصر' },
-                      { key: 'compounds', icon: FlaskConical, label: 'المركبات', desc: 'الأحماض والقواعد والأملاح' },
-                      { key: 'lessons', icon: BookOpen, label: 'قسم الدروس', desc: 'اكتب واحفظ دروسك الخاصة' },
-                      { key: 'game', icon: Target, label: 'لعبة التكافؤ', desc: 'اختبر معرفتك بطريقة ممتعة' },
-                      { key: 'quiz', icon: Award, label: 'الاختبار الشامل', desc: 'قيم مستواك في الكيمياء' }
+                      { key: 'home', icon: Beaker, label: 'Home Page', desc: 'Main page and general information' },
+                      { key: 'elements', icon: Atom, label: 'Chemical Elements', desc: 'Periodic table and valencies' },
+                      { key: 'periodic-table', icon: Grid3x3, label: 'Interactive Periodic Table', desc: 'Complete table with all elements' },
+                      { key: 'compounds', icon: FlaskConical, label: 'Compounds', desc: 'Acids, bases and salts' },
+                      { key: 'lessons', icon: BookOpen, label: 'Lessons Section', desc: 'Write and save your own lessons' },
+                      { key: 'game', icon: Target, label: 'Valency Game', desc: 'Test your knowledge in a fun way' },
+                      { key: 'quiz', icon: Award, label: 'Comprehensive Quiz', desc: 'Evaluate your chemistry level' }
                     ].map(({ key, icon: Icon, label, desc }) => (
                       <Button
                         key={key}
@@ -783,13 +1125,13 @@ export default function ChemistryLearning() {
           {/* شريط تنقل مبسط للهواتف المتوسطة */}
           <div className="flex md:hidden lg:hidden mt-3 gap-1 overflow-x-auto pb-2">
             {[
-              { key: 'home', icon: Beaker, label: 'الرئيسية' },
-              { key: 'elements', icon: Atom, label: 'العناصر' },
-              { key: 'periodic-table', icon: Grid3x3, label: 'الجدول' },
-              { key: 'compounds', icon: FlaskConical, label: 'المركبات' },
-              { key: 'lessons', icon: BookOpen, label: 'الدروس' },
-              { key: 'game', icon: Target, label: 'لعبة' },
-              { key: 'quiz', icon: Award, label: 'اختبار' }
+              { key: 'home', icon: Beaker, label: 'Home' },
+              { key: 'elements', icon: Atom, label: 'Elements' },
+              { key: 'periodic-table', icon: Grid3x3, label: 'Table' },
+              { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
+              { key: 'lessons', icon: BookOpen, label: 'Lessons' },
+              { key: 'game', icon: Target, label: 'Game' },
+              { key: 'quiz', icon: Award, label: 'Quiz' }
             ].map(({ key, icon: Icon, label }) => (
               <Button
                 key={key}
@@ -816,19 +1158,19 @@ export default function ChemistryLearning() {
                 </div>
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent leading-tight px-4">
-                مرحباً بك في مختبر الكيمياء التفاعلي
+                Welcome to Interactive Chemistry Lab
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-                تعلم الكيمياء بطريقة ممتعة وتفاعلية مع الألعاب والاختبارات والتجارب الافتراضية
+                Learn chemistry in a fun and interactive way with games, quizzes, and virtual experiments
               </p>
             </div>
 
             {/* شريط التقدم */}
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 border-blue-200 dark:border-blue-800">
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-blue-200 dark:border-blue-700">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-yellow-500" />
-                  تقدمك في التعلم
+                  Your Learning Progress
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -837,10 +1179,10 @@ export default function ChemistryLearning() {
                     <div key={key} className="space-y-2">
                       <div className="flex justify-between text-sm text-foreground">
                         <span>
-                          {key === 'elements' && 'العناصر'}
-                          {key === 'compounds' && 'المركبات'}
-                          {key === 'acids' && 'الأحماض'}
-                          {key === 'valency' && 'التكافؤ'}
+                          {key === 'elements' && 'Elements'}
+                          {key === 'compounds' && 'Compounds'}
+                          {key === 'acids' && 'Acids'}
+                          {key === 'valency' && 'Valency'}
                         </span>
                         <span>{value}%</span>
                       </div>
@@ -858,11 +1200,11 @@ export default function ChemistryLearning() {
                   <div className="mx-auto p-3 rounded-full bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                     <Atom className="w-8 h-8" />
                   </div>
-                  <CardTitle className="text-lg">جدول العناصر</CardTitle>
+                  <CardTitle className="text-lg">Element Table</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    استكشف العناصر الكيميائية وتكافؤاتها بطريقة تفاعلية
+                    Explore chemical elements and their valencies interactively
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -872,11 +1214,11 @@ export default function ChemistryLearning() {
                   <div className="mx-auto p-3 rounded-full bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
                     <FlaskConical className="w-8 h-8" />
                   </div>
-                  <CardTitle className="text-lg">المركبات الكيميائية</CardTitle>
+                  <CardTitle className="text-lg">Chemical Compounds</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    تعلم الأحماض والقواعد والأملاح والصيغ الكيميائية
+                    Learn acids, bases, salts and chemical formulas
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -886,11 +1228,11 @@ export default function ChemistryLearning() {
                   <div className="mx-auto p-3 rounded-full bg-green-100 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
                     <Target className="w-8 h-8" />
                   </div>
-                  <CardTitle className="text-lg">لعبة التكافؤ</CardTitle>
+                  <CardTitle className="text-lg">Valency Game</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    اختبر معرفتك بتكافؤ العناصر في لعبة سريعة ومثيرة
+                    Test your knowledge of element valencies in a fast and exciting game
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -900,22 +1242,22 @@ export default function ChemistryLearning() {
                   <div className="mx-auto p-3 rounded-full bg-red-100 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
                     <Award className="w-8 h-8" />
                   </div>
-                  <CardTitle className="text-lg">اختبار شامل</CardTitle>
+                  <CardTitle className="text-lg">Comprehensive Quiz</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-center">
-                    قيم مستواك في الكيمياء مع اختبار تفاعلي شامل
+                    Evaluate your chemistry level with an interactive comprehensive test
                   </CardDescription>
                 </CardContent>
               </Card>
             </div>
 
             {/* حقائق كيميائية محسنة للأجهزة المحمولة */}
-            <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950 dark:to-orange-950 border-yellow-200 dark:border-yellow-800">
+            <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 border-yellow-200 dark:border-yellow-700">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                   <Sparkles className="w-5 h-5 text-yellow-500" />
-                  هل تعلم؟
+                  Did you know?
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -937,9 +1279,9 @@ export default function ChemistryLearning() {
                       description: 'الأحماض تتفاعل مع القواعد لتكوين الأملاح والماء'
                     }
                   ].map((fact, index) => (
-                    <div key={index} className="p-4 bg-white dark:bg-gray-800 rounded-lg border hover:shadow-md transition-shadow">
+                    <div key={index} className="p-4 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow">
                       <div className="text-2xl mb-2">{fact.icon}</div>
-                      <div className="font-semibold mb-2 text-sm sm:text-base">{fact.title}</div>
+                      <div className="font-semibold mb-2 text-sm sm:text-base text-foreground">{fact.title}</div>
                       <div className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{fact.description}</div>
                     </div>
                   ))}
@@ -1035,7 +1377,7 @@ export default function ChemistryLearning() {
             </div>
 
             {/* معلومات إضافية عن الجدول الدوري */}
-            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950">
+            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30">
               <CardHeader>
                 <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-purple-500" />
@@ -1086,7 +1428,7 @@ export default function ChemistryLearning() {
             </div>
 
             {/* إحصائيات الدروس */}
-            <Card className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
+            <Card className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20 border-blue-200 dark:border-blue-700">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                   <BarChart3 className="w-5 h-5 text-blue-500" />
@@ -1095,17 +1437,17 @@ export default function ChemistryLearning() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg border">
+                  <div className="text-center p-4 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                     <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">{lessons.length}</div>
                     <div className="text-sm text-muted-foreground">عدد الدروس</div>
                   </div>
-                  <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg border">
+                  <div className="text-center p-4 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                     <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400">
                       {lessons.reduce((acc, lesson) => acc + lesson.content.length, 0)}
                     </div>
                     <div className="text-sm text-muted-foreground">إجمالي الأحرف</div>
                   </div>
-                  <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg border">
+                  <div className="text-center p-4 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                     <div className="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400">
                       {Math.round(lessons.reduce((acc, lesson) => acc + lesson.content.split(' ').length, 0) / (lessons.length || 1))}
                     </div>
@@ -1214,6 +1556,14 @@ export default function ChemistryLearning() {
                             <div className="text-xs text-muted-foreground bg-gray-50 dark:bg-gray-800 p-3 rounded-lg max-h-32 overflow-y-auto">
                               {lesson.content.substring(0, 200)}...
                             </div>
+                            <Button
+                              onClick={() => viewLessonDetails(lesson)}
+                              className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white"
+                              size="sm"
+                            >
+                              <Eye className="w-4 h-4 mr-2" />
+                              عرض تفاصيل الدرس كاملة
+                            </Button>
                           </div>
                           
                           <div>
@@ -1279,7 +1629,7 @@ export default function ChemistryLearning() {
             </div>
 
             {/* معلومات إضافية عن التكافؤ محسنة للهواتف */}
-            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950">
+            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30">
               <CardHeader>
                 <CardTitle className="text-lg sm:text-xl">ما هو التكافؤ؟</CardTitle>
               </CardHeader>
@@ -1397,15 +1747,15 @@ export default function ChemistryLearning() {
               <TabsContent value="bases" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-blue-600">القواعد (القلويات)</CardTitle>
+                    <CardTitle className="text-blue-600 dark:text-blue-400">القواعد (القلويات)</CardTitle>
                     <CardDescription>
                       المواد التي تعطي أيونات الهيدروكسيد السالبة (OH⁻) عند الذوبان في الماء
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                        <h4 className="font-semibold text-blue-700 mb-2">خصائص القواعد:</h4>
+                      <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2">خصائص القواعد:</h4>
                         <ul className="text-sm space-y-1">
                           <li>• تزرق ورقة عباد الشمس</li>
                           <li>• ذات طعم قابض</li>
@@ -1413,7 +1763,7 @@ export default function ChemistryLearning() {
                           <li>• ملمس صابوني</li>
                         </ul>
                       </div>
-                      <div className="p-4 bg-white rounded-lg border">
+                      <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700">
                         <h4 className="font-semibold mb-2">أمثلة على القواعد:</h4>
                         <ul className="text-sm space-y-1">
                           <li>• هيدروكسيد الصوديوم (NaOH)</li>
@@ -1433,8 +1783,8 @@ export default function ChemistryLearning() {
                     <CardTitle>كيفية كتابة الصيغ الكيميائية</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                      <h4 className="font-semibold mb-2">القواعد الأساسية:</h4>
+                    <div className="p-4 bg-yellow-50 dark:bg-yellow-950/30 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                      <h4 className="font-semibold mb-2 text-foreground">القواعد الأساسية:</h4>
                       <ol className="list-decimal list-inside space-y-2 text-sm">
                         <li>يكتب الشق الموجب يساراً والسالب يميناً</li>
                         <li>تكتب التكافؤات بالتبادل</li>
@@ -1443,25 +1793,25 @@ export default function ChemistryLearning() {
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-4 bg-white rounded-lg border">
-                        <h4 className="font-semibold mb-3">أمثلة تطبيقية:</h4>
+                      <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700">
+                        <h4 className="font-semibold mb-3 text-foreground">أمثلة تطبيقية:</h4>
                         <div className="space-y-3 text-sm">
                           <div>
-                            <div className="font-semibold">أكسيد كالسيوم:</div>
+                            <div className="font-semibold text-foreground">أكسيد كالسيوم:</div>
                             <div className="text-muted-foreground">Ca²⁺ + O²⁻ → CaO</div>
                           </div>
                           <div>
-                            <div className="font-semibold">كلوريد ماغنسيوم:</div>
+                            <div className="font-semibold text-foreground">كلوريد ماغنسيوم:</div>
                             <div className="text-muted-foreground">Mg²⁺ + Cl⁻ → MgCl₂</div>
                           </div>
                           <div>
-                            <div className="font-semibold">أكسيد ألومنيوم:</div>
+                            <div className="font-semibold text-foreground">أكسيد ألومنيوم:</div>
                             <div className="text-muted-foreground">Al³⁺ + O²⁻ → Al₂O₃</div>
                           </div>
                         </div>
                       </div>
-                      <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                        <h4 className="font-semibold mb-2">نصائح مهمة:</h4>
+                      <div className="p-4 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800">
+                        <h4 className="font-semibold mb-2 text-foreground">نصائح مهمة:</h4>
                         <ul className="text-sm space-y-1">
                           <li>• احرص على توازن الشحنات</li>
                           <li>• اختصر الأرقام إذا كان ممكناً</li>
@@ -1672,20 +2022,20 @@ export default function ChemistryLearning() {
         )}
       </div>
       
-      {/* Footer احترافي */}
+      {/* Professional Footer */}
       <footer className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 text-white mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* قسم الشعار */}
+            {/* Logo section */}
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <FlaskConical className="w-8 h-8 text-blue-400" />
                 <h3 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  مختبر الكيمياء
+                  Chemistry Lab
                 </h3>
               </div>
               <p className="text-gray-300 text-sm leading-relaxed">
-                منصة تعليمية تفاعلية لتعلم الكيمياء بطريقة ممتعة وفعالة
+                Interactive educational platform for learning chemistry in a fun and effective way
               </p>
               <div className="flex items-center gap-2 text-yellow-400">
                 <Star className="w-4 h-4" />
@@ -1693,24 +2043,24 @@ export default function ChemistryLearning() {
                 <Star className="w-4 h-4" />
                 <Star className="w-4 h-4" />
                 <Star className="w-4 h-4" />
-                <span className="text-sm text-gray-300 mr-2">تقييم 5/5</span>
+                <span className="text-sm text-gray-300 mr-2">5/5 Rating</span>
               </div>
             </div>
 
-            {/* الروابط السريعة */}
+            {/* Quick links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-blue-400">الأقسام</h4>
+              <h4 className="text-lg font-semibold text-blue-400">Sections</h4>
               <div className="space-y-2">
                 {[
-                  { key: 'elements', label: 'العناصر الكيميائية' },
-                  { key: 'periodic-table', label: 'الجدول الدوري' },
-                  { key: 'compounds', label: 'المركبات الكيميائية' },
-                  { key: 'lessons', label: 'الدروس التفاعلية' }
+                  { key: 'elements', label: 'Chemical Elements' },
+                  { key: 'periodic-table', label: 'Periodic Table' },
+                  { key: 'compounds', label: 'Chemical Compounds' },
+                  { key: 'lessons', label: 'Interactive Lessons' }
                 ].map(({ key, label }) => (
                   <button
                     key={key}
                     onClick={() => setCurrentSection(key)}
-                    className="block text-sm text-gray-300 hover:text-blue-400 transition-colors cursor-pointer text-right w-full"
+                    className="block text-sm text-gray-300 hover:text-blue-400 transition-colors cursor-pointer text-left w-full"
                   >
                     {label}
                   </button>
@@ -1718,51 +2068,51 @@ export default function ChemistryLearning() {
               </div>
             </div>
 
-            {/* الميزات */}
+            {/* Features */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-purple-400">الميزات</h4>
+              <h4 className="text-lg font-semibold text-purple-400">Features</h4>
               <div className="space-y-2 text-sm text-gray-300">
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-yellow-400" />
-                  تعلم تفاعلي
+                  Interactive Learning
                 </div>
                 <div className="flex items-center gap-2">
                   <Brain className="w-4 h-4 text-green-400" />
-                  تلخيص ذكي
+                  Smart Summarization
                 </div>
                 <div className="flex items-center gap-2">
                   <Target className="w-4 h-4 text-red-400" />
-                  ألعاب تعليمية
+                  Educational Games
                 </div>
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-blue-400" />
-                  اختبارات فورية
+                  Instant Quizzes
                 </div>
               </div>
             </div>
 
-            {/* معلومات المطور */}
+            {/* Developer info */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-green-400">المطور</h4>
+              <h4 className="text-lg font-semibold text-green-400">Developer</h4>
               <div className="space-y-2 text-sm">
                 <div className="p-3 bg-white/10 rounded-lg border border-white/20">
-                  <div className="text-white font-semibold mb-1">محمد علي</div>
-                  <div className="text-gray-300 text-xs">مهندس برمجيات</div>
-                  <div className="text-gray-400 text-xs mt-1">متخصص في تطوير التطبيقات التعليمية التفاعلية</div>
+                  <div className="text-white font-semibold mb-1">Mohamed Aly</div>
+                  <div className="text-gray-300 text-xs">Software Engineer</div>
+                  <div className="text-gray-400 text-xs mt-1">Specialized in interactive educational app development</div>
                 </div>
                 <div className="flex items-center gap-2 text-gray-400 text-xs">
-                  <span>🎆</span> مصمم بتقنية React + TypeScript
+                  <span>🎆</span> Built with React + TypeScript
                 </div>
               </div>
             </div>
           </div>
 
-          {/* الخط الفاصل وحقوق الطبع */}
+          {/* Divider and copyright */}
           <div className="border-t border-gray-700 mt-8 pt-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-center md:text-right">
+              <div className="text-center md:text-left">
                 <p className="text-gray-400 text-sm">
-                  © 2024 مختبر الكيمياء - جميع الحقوق محفوظة
+                  © 2024 Chemistry Lab - All rights reserved
                 </p>
                 <p className="text-gray-500 text-xs mt-1">
                   Developed with ❤️ by <span className="text-blue-400 font-semibold">Mohamed Aly</span>
@@ -1772,18 +2122,18 @@ export default function ChemistryLearning() {
               <div className="flex items-center gap-4">
                 <div className="text-xs text-gray-500 flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  النظام يعمل بشكل مثالي
+                  System running perfectly
                 </div>
                 
-                {/* أزرار تقييم */}
+                {/* Rating buttons */}
                 <div className="flex gap-2">
                   <Button
                     variant="ghost"
                     size="sm"
                     className="text-gray-400 hover:text-yellow-400 transition-colors"
-                    onClick={() => toast.success('شكراً للتقييم! 🎆')}
+                    onClick={() => toast.success('Thanks for rating! 🎆')}
                   >
-                    ⭐ قيم الموقع
+                    ⭐ Rate Website
                   </Button>
                 </div>
               </div>
@@ -1792,6 +2142,124 @@ export default function ChemistryLearning() {
         </div>
       </footer>
     </div>
+
+      {/* Dialog لعرض تفاصيل الدرس */}
+      <Dialog open={isLessonDialogOpen} onOpenChange={setIsLessonDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" dir="rtl">
+          {selectedLessonForView && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-xl font-bold mb-2">
+                  {selectedLessonForView.title}
+                </DialogTitle>
+                <DialogDescription className="text-sm text-muted-foreground">
+                  تاريخ الإنشاء: {selectedLessonForView.createdAt}
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="space-y-6 mt-4">
+                {/* محتوى الدرس الكامل */}
+                <div>
+                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <BookOpen className="w-5 h-5 text-blue-500" />
+                    محتوى الدرس الكامل
+                  </h3>
+                  <div className="prose prose-sm max-w-none text-right bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
+                    <div className="whitespace-pre-line text-foreground leading-relaxed">
+                      {selectedLessonForView.content.split('\n').map((line, index) => {
+                        // تنسيق العناوين
+                        if (line.startsWith('##')) {
+                          return (
+                            <h4 key={index} className="font-bold text-lg mt-4 mb-2 text-blue-600 dark:text-blue-400">
+                              {line.replace('##', '').trim()}
+                            </h4>
+                          );
+                        }
+                        if (line.startsWith('#')) {
+                          return (
+                            <h3 key={index} className="font-bold text-xl mt-6 mb-3 text-purple-600 dark:text-purple-400">
+                              {line.replace('#', '').trim()}
+                            </h3>
+                          );
+                        }
+                        // تنسيق النقاط
+                        if (line.startsWith('•') || line.startsWith('-')) {
+                          return (
+                            <div key={index} className="mb-1 pr-4">
+                              <span className="text-green-500 font-bold ml-2">•</span>
+                              {line.replace(/^[•-]\s*/, '').trim()}
+                            </div>
+                          );
+                        }
+                        // تنسيق الأرقام
+                        if (/^\d+\./.test(line.trim())) {
+                          return (
+                            <div key={index} className="mb-1 font-medium text-blue-600 dark:text-blue-400">
+                              {line}
+                            </div>
+                          );
+                        }
+                        // النص العادي
+                        if (line.trim()) {
+                          return (
+                            <p key={index} className="mb-3 text-justify">
+                              {line}
+                            </p>
+                          );
+                        }
+                        return <div key={index} className="mb-2"></div>;
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* التلخيص */}
+                <div>
+                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <Brain className="w-5 h-5 text-green-500" />
+                    التلخيص التلقائي
+                  </h3>
+                  <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                    <p className="text-sm leading-relaxed">{selectedLessonForView.summary}</p>
+                  </div>
+                </div>
+
+                {/* الأسئلة */}
+                <div>
+                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-purple-500" />
+                    الأسئلة المولدة تلقائياً
+                  </h3>
+                  <div className="space-y-3">
+                    {selectedLessonForView.quiz.map((question, qIndex) => (
+                      <div key={qIndex} className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                        <h4 className="font-medium mb-2 text-purple-700 dark:text-purple-300">
+                          السؤال {qIndex + 1}: {question.question}
+                        </h4>
+                        <div className="space-y-1 mb-2">
+                          {question.options.map((option, oIndex) => (
+                            <div 
+                              key={oIndex} 
+                              className={`text-sm p-2 rounded ${
+                                oIndex === question.correct 
+                                  ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 font-medium'
+                                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                              }`}
+                            >
+                              {String.fromCharCode(65 + oIndex)}) {option}
+                              {oIndex === question.correct && ' ✓ (الإجابة الصحيحة)'}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

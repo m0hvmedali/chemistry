@@ -28,7 +28,8 @@ import {
   Download,
   Trash2,
   Edit,
-  Save
+  Save,
+  Target
 } from 'lucide-react';
 
 // Study Materials Section

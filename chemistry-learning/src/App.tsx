@@ -2698,6 +2698,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                     </div>
                     <div className="text-xl sm:text-2xl font-semibold">{currentElement.name}</div>
                   </div>
+
                   
                   <div className="space-y-4">
                     <Label className="text-base sm:text-lg">ما هو تكافؤ هذا العنصر؟</Label>

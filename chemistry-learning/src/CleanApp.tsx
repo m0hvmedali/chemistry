@@ -8,7 +8,16 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast, Toaster } from 'sonner';
 import ChemistryChatbot from '@/components/ChemistryChatbot';
+import EnhancedChatbot from '@/components/EnhancedChatbot';
 import FloatingChatbot from '@/components/FloatingChatbot';
+import { useTheme } from '@/contexts/ThemeContext';
+import { 
+  StudyMaterialsSection, 
+  FileUploadSection, 
+  StudyTimerSection, 
+  DashboardSection, 
+  LearningResourcesSection 
+} from '@/components/StudyComponents';
 import {
   Beaker,
   BookOpen,
@@ -20,7 +29,16 @@ import {
   Grid3x3,
   Settings,
   Menu,
-  X
+  X,
+  Moon,
+  Sun,
+  FolderOpen,
+  Upload,
+  Clock,
+  BarChart3,
+  FileText,
+  PlusCircle,
+  BookMarked
 } from 'lucide-react';
 
 // Simple elements data
@@ -57,11 +75,17 @@ const COMPOUNDS = [
 export default function CleanApp() {
   const [currentSection, setCurrentSection] = useState('home');
   const [selectedElement, setSelectedElement] = useState<any>(null);
+  const { isDark, toggleTheme } = useTheme();
 
   const sections = [
     { key: 'home', icon: Beaker, label: 'الرئيسية', desc: 'الصفحة الرئيسية' },
     { key: 'elements', icon: Atom, label: 'العناصر', desc: 'تعلم عن العناصر الكيميائية' },
     { key: 'compounds', icon: FlaskConical, label: 'المركبات', desc: 'الأحماض والقواعد والأملاح' },
+    { key: 'study', icon: FolderOpen, label: 'المواد الدراسية', desc: 'إدارة المواد والدروس' },
+    { key: 'files', icon: Upload, label: 'رفع الملفات', desc: 'رفع وتلخيص الدروس' },
+    { key: 'timer', icon: Clock, label: 'مؤقت المذاكرة', desc: 'مؤقت Pomodoro للدراسة' },
+    { key: 'dashboard', icon: BarChart3, label: 'لوحة التحكم', desc: 'إحصائيات ومتابعة التقدم' },
+    { key: 'resources', icon: BookMarked, label: 'مصادر التعلم', desc: 'مراجع ومصادر خارجية' },
     { key: 'chatbot', icon: Bot, label: 'المساعد الذكي', desc: 'اسأل أي سؤال كيميائي' },
     { key: 'quiz', icon: Award, label: 'اختبار', desc: 'قيم مستواك في الكيمياء' }
   ];
@@ -97,7 +121,7 @@ export default function CleanApp() {
               
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center gap-2">
-                {sections.map(({ key, icon: Icon, label }) => (
+                {sections.slice(0, 4).map(({ key, icon: Icon, label }) => (
                   <Button
                     key={key}
                     variant={currentSection === key ? 'default' : 'ghost'}
@@ -108,6 +132,33 @@ export default function CleanApp() {
                     {label}
                   </Button>
                 ))}
+                
+                {/* More sections dropdown for desktop */}
+                <div className="flex items-center gap-2">
+                  {sections.slice(4).map(({ key, icon: Icon, label }) => (
+                    <Button
+                      key={key}
+                      variant={currentSection === key ? 'default' : 'ghost'}
+                      onClick={() => setCurrentSection(key)}
+                      className="gap-1 text-xs"
+                      size="sm"
+                    >
+                      <Icon className="w-3 h-3" />
+                      {label}
+                    </Button>
+                  ))}
+                </div>
+                
+                {/* Theme Toggle */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={toggleTheme}
+                  className="gap-2"
+                >
+                  {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {isDark ? 'فاتح' : 'داكن'}
+                </Button>
               </div>
             </div>
           </div>
@@ -121,12 +172,21 @@ export default function CleanApp() {
                 key={key}
                 variant={currentSection === key ? 'default' : 'ghost'}
                 onClick={() => setCurrentSection(key)}
-                className="flex-shrink-0 gap-1 text-xs px-3 py-2"
+                className="flex-shrink-0 gap-1 text-xs px-2 py-2"
               >
-                <Icon className="w-4 h-4" />
-                {label}
+                <Icon className="w-3 h-3" />
+                <span className="text-xs">{label.split(' ')[0]}</span>
               </Button>
             ))}
+            {/* Mobile Theme Toggle */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleTheme}
+              className="flex-shrink-0 gap-1 text-xs px-2 py-2"
+            >
+              {isDark ? <Sun className="w-3 h-3" /> : <Moon className="w-3 h-3" />}
+            </Button>
           </div>
         </div>
 
@@ -255,17 +315,42 @@ export default function CleanApp() {
             </div>
           )}
 
-          {/* Chatbot Section */}
+          {/* Enhanced Chatbot Section */}
           {currentSection === 'chatbot' && (
             <div className="space-y-6">
               <div className="text-center">
-                <h2 className="text-3xl font-bold mb-4">المساعد الذكي للكيمياء</h2>
+                <h2 className="text-3xl font-bold mb-4">المساعد الذكي المطور</h2>
                 <p className="text-gray-600 dark:text-gray-300">
-                  اسأل أي سؤال عن الكيمياء واحصل على إجابة فورية
+                  شات بوت متقدم يتدرب على ملفاتك ويجيب على أسئلتك بناءً عليها
                 </p>
               </div>
-              <ChemistryChatbot />
+              <EnhancedChatbot />
             </div>
+          )}
+
+          {/* Study Materials Section */}
+          {currentSection === 'study' && (
+            <StudyMaterialsSection />
+          )}
+
+          {/* File Upload Section */}
+          {currentSection === 'files' && (
+            <FileUploadSection />
+          )}
+
+          {/* Study Timer Section */}
+          {currentSection === 'timer' && (
+            <StudyTimerSection />
+          )}
+
+          {/* Dashboard Section */}
+          {currentSection === 'dashboard' && (
+            <DashboardSection />
+          )}
+
+          {/* Learning Resources Section */}
+          {currentSection === 'resources' && (
+            <LearningResourcesSection />
           )}
 
           {/* Quiz Section */}

@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast, Toaster } from 'sonner';
 import ChemistryChatbot from '@/components/ChemistryChatbot';
+import FloatingChatbot from '@/components/FloatingChatbot';
 import {
   Beaker,
   BookOpen,
@@ -1338,6 +1339,10 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           }
         }}
       />
+      
+      {/* Floating Chatbot */}
+      <FloatingChatbot />
+      
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-950 dark:via-slate-900 dark:to-gray-950 transition-colors duration-300">
       {/* شريط التنقل المحسن للأجهزة المحمولة */}
       <nav className="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors duration-300">
@@ -1770,7 +1775,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                             }}
                             onClick={() => {
                               updateProgress('elements', 2);
-                              toast.success(`تعلمت عن ${element.name} (${element.symbol})!`);
+                              toast.success('تعلمت عن ' + element.name + ' (' + element.symbol + ')!');
                             }}
                           >
                             <div className="text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -1864,7 +1869,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                             }}
                             onClick={() => {
                               updateProgress('elements', 2);
-                              toast.success(`تعلمت عن ${element.name} (${element.symbol})!`);
+                              toast.success('تعلمت عن ' + element.name + ' (' + element.symbol + ')!');
                             }}
                           >
                             <div className="text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -1906,7 +1911,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                             }}
                             onClick={() => {
                               updateProgress('elements', 2);
-                              toast.success(`تعلمت عن ${element.name} (${element.symbol})!`);
+                              toast.success('تعلمت عن ' + element.name + ' (' + element.symbol + ')!');
                             }}
                           >
                             <div className="text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -1945,7 +1950,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                             }}
                             onClick={() => {
                               updateProgress('elements', 2);
-                              toast.success(`تعلمت عن ${element.name} (${element.symbol})!`);
+                              toast.success('تعلمت عن ' + element.name + ' (' + element.symbol + ')!');
                             }}
                           >
                             <div className="text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -1979,7 +1984,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                             }}
                             onClick={() => {
                               updateProgress('elements', 2);
-                              toast.success(`تعلمت عن ${element.name} (${element.symbol})!`);
+                              toast.success('تعلمت عن ' + element.name + ' (' + element.symbol + ')!');
                             }}
                           >
                             <div className="text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -2011,7 +2016,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                             }}
                             onClick={() => {
                               updateProgress('elements', 2);
-                              toast.success(`تعلمت عن ${element.name} (${element.symbol})!`);
+                              toast.success('تعلمت عن ' + element.name + ' (' + element.symbol + ')!');
                             }}
                           >
                             <div className="text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -2026,7 +2031,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* تحسينات الموبايل - عرض العناصر بشكل مجموعات */}
+            {/* Mobile optimization - display elements in groups */}
             <div className="md:hidden mb-6">
               <h3 className="text-lg font-bold text-center mb-4 text-blue-600 dark:text-blue-400">عرض محسن للموبايل</h3>
               
@@ -2497,7 +2502,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   showDetails={true}
                   onClick={(el) => {
                     updateProgress('elements', 5);
-                    toast.success(`تعلمت عن ${el.name}!`);
+                    toast.success('تعلمت عن ' + el.name + '!');
                   }}
                 />
               ))}

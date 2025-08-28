@@ -1284,7 +1284,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         )}
       </div>
       
-      {/* تأثير بصري متقدم */}
       <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
         <div 
           className="absolute inset-0 rounded-xl opacity-10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
@@ -1292,7 +1291,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         ></div>
       </div>
       
-      {/* فقاعة توضيحية */}
       {element.description && (
         <div className="absolute inset-x-0 bottom-0 p-2 bg-black/80 text-white text-[10px] leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-full group-hover:translate-y-0">
           {element.description.substring(0, 80)}...
@@ -1339,11 +1337,9 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         }}
       />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-950 dark:via-slate-900 dark:to-gray-950 transition-colors duration-300">
-      {/* شريط التنقل المحسن للأجهزة المحمولة */}
       <nav className="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            {/* الشعار */}
             <div className="flex items-center gap-2">
               <FlaskConical className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400 transition-colors" />
               <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300 bg-clip-text text-transparent transition-colors">
@@ -1352,7 +1348,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </h1>
             </div>
 
-            {/* أزرار سطح المكتب */}
             <div className="hidden lg:flex items-center gap-4">
               <Button
                 variant="ghost"
@@ -1391,7 +1386,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* أزرار الأجهزة المحمولة */}
             <div className="flex lg:hidden items-center gap-2">
               <Button
                 variant="ghost"
@@ -1452,7 +1446,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
             </div>
           </div>
 
-          {/* شريط تنقل مبسط للهواتف المتوسطة */}
           <div className="flex md:hidden lg:hidden mt-3 gap-1 overflow-x-auto pb-2">
             {[
               { key: 'home', icon: Beaker, label: 'Home' },
@@ -1480,7 +1473,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
       </nav>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        {/* الصفحة الرئيسية */}
         {currentSection === 'home' && (
           <div className="space-y-8 sm:space-y-12">
             <div className="text-center space-y-4 sm:space-y-6">
@@ -1497,7 +1489,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </p>
             </div>
 
-            {/* شريط التقدم */}
             <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/40 dark:to-purple-950/40 border-blue-200 dark:border-blue-700/50 transition-colors duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -1525,7 +1516,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </CardContent>
             </Card>
 
-            {/* الميزات الرئيسية */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="group hover:scale-105 active:scale-95 transition-transform duration-300 cursor-pointer border-blue-200 touch-manipulation min-h-[8rem] sm:min-h-[9rem]" onClick={() => setCurrentSection('elements')}>
                 <CardHeader className="text-center p-4 sm:p-6">
@@ -1584,7 +1574,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </Card>
             </div>
 
-            {/* حقائق كيميائية محسنة للأجهزة المحمولة */}
             <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30 border-yellow-200 dark:border-yellow-600/50 transition-colors duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
@@ -1623,7 +1612,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* الجدول الدوري التفاعلي */}
         {currentSection === 'periodic-table' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -1635,7 +1623,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </p>
             </div>
 
-            {/* فلتر العناصر مع إضافة اللانثانيدات والأكتينيدات */}
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle className="text-lg">تصنيف العناصر</CardTitle>
@@ -1670,16 +1657,13 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </CardContent>
             </Card>
 
-            {/* الجدول الدوري المحسن للأجهزة المحمولة */}
             <div className="bg-white dark:bg-gray-900/80 p-2 sm:p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-2xl overflow-x-auto backdrop-blur-sm transition-colors duration-300">
-              {/* عرض مقسم للأجهزة المحمولة */}
               <div className="block sm:hidden mb-4">
                 <div className="text-center mb-4">
                   <h3 className="text-lg font-bold mb-2">عرض العناصر حسب الفئة</h3>
                   <p className="text-sm text-muted-foreground">للعرض الأمثل على الجوال، اختر فئة من الأعلى</p>
                 </div>
                 
-                {/* عرض العناصر بشكل شبكة قابلة للتمرير */}
                 <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-2 mb-4">
                   {PERIODIC_TABLE_ELEMENTS
                     .filter(element => !selectedElement || element.category === selectedElement.category)
@@ -1726,11 +1710,8 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
               
-              {/* عرض الجدول الكامل للشاشات الأكبر */}
               <div className="hidden sm:block">
-                {/* جدول دوري محسن للموبايل */}
                 <div className="min-w-[600px] sm:min-w-[800px] lg:min-w-[1200px] mx-auto">
-                  {/* رسم الجدول بشكل تلقائي */}
                   {[1, 2, 3, 4, 5, 6, 7].map((period) => (
                     <div key={period} className="grid gap-[1px] sm:gap-0.5 lg:gap-1 mb-0.5 sm:mb-1" 
                          style={{ gridTemplateColumns: 'repeat(18, minmax(20px, 1fr))' }}>
@@ -1783,9 +1764,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                     );
                   })}
                   
-                  {/* إضافة اللانثانيدات والأكتينيدات */}
-                  
-                  {/* اللانثانيدات */}
+                 
                   <div className="mt-4 mb-2">
                     <div className="text-sm font-semibold text-center mb-2 text-blue-600 dark:text-blue-300">
                       * اللانثانيدات (الدورة 6)
@@ -1808,7 +1787,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                     </div>
                   </div>
                   
-                  {/* الأكتينيدات */}
                   <div className="mt-2 mb-4">
                     <div className="text-sm font-semibold text-center mb-2 text-red-600 dark:text-red-300">
                       ** الأكتينيدات (الدورة 7)
@@ -1834,7 +1812,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
               
-              {/* مفتاح قراءة الجدول */}
               <Card className="mt-4">
                 <CardHeader>
                   <CardTitle className="text-base sm:text-lg">مفتاح قراءة الجدول</CardTitle>
@@ -1882,7 +1859,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
 
 
 
-                {/* الدورة السادسة (مع فجوة للانثانيدات) */}
                 <div className="grid grid-cols-18 gap-1 mb-1" style={{ gridTemplateColumns: 'repeat(18, 70px)' }}>
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map((group, index) => {
                     // تعامل خاص مع اللانثانيدات في المجموعة 3
@@ -1921,7 +1897,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   })}
                 </div>
 
-                {/* الدورة السابعة (مع فجوة للأكتينيدات) */}
                 <div className="grid grid-cols-18 gap-1 mb-3" style={{ gridTemplateColumns: 'repeat(18, 70px)' }}>
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map((group, index) => {
                     // تعامل خاص مع الأكتينيدات في المجموعة 3
@@ -1960,7 +1935,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   })}
                 </div>
 
-                {/* اللانثانيدات */}
                 <div className="mb-2">
                   <div className="text-sm font-semibold text-center mb-1 text-blue-600 dark:text-blue-300 transition-colors">* اللانثانيدات</div>
                   <div className="grid grid-cols-15 gap-1 mx-auto" style={{ gridTemplateColumns: 'repeat(15, 70px)', width: 'fit-content' }}>
@@ -2061,7 +2035,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الفلزات الانتقالية (جزء 1) */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-yellow-600 dark:text-yellow-400">الفلزات الانتقالية (الجزء الأول)</h4>
                 <div className="grid grid-cols-4 gap-2">
@@ -2073,7 +2046,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الفلزات الانتقالية (جزء 2) */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-yellow-600 dark:text-yellow-400">الفلزات الانتقالية (الجزء الثاني)</h4>
                 <div className="grid grid-cols-4 gap-2">
@@ -2085,7 +2057,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الفلزات الانتقالية (باقي العناصر) */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-yellow-600 dark:text-yellow-400">باقي الفلزات الانتقالية</h4>
                 <div className="grid grid-cols-4 gap-2">
@@ -2097,7 +2068,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* أشباه الفلزات */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-green-600 dark:text-green-400">أشباه الفلزات</h4>
                 <div className="grid grid-cols-4 gap-2">
@@ -2109,7 +2079,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* اللافلزات */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-purple-600 dark:text-purple-400">اللافلزات</h4>
                 <div className="grid grid-cols-4 gap-2">
@@ -2121,7 +2090,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الغازات النبيلة */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-blue-600 dark:text-blue-400">الغازات النبيلة</h4>
                 <div className="grid grid-cols-3 gap-2">
@@ -2133,7 +2101,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* اللانثانيدات */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-cyan-600 dark:text-cyan-400">اللانثانيدات</h4>
                 <div className="grid grid-cols-3 gap-2">
@@ -2159,7 +2126,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الأكتينيدات */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-red-600 dark:text-red-400">الأكتينيدات</h4>
                 <div className="grid grid-cols-3 gap-2">
@@ -2190,7 +2156,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* تفسير الرموز والألوان */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <Card>
                 <CardHeader>
@@ -2241,7 +2206,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </Card>
             </div>
 
-            {/* معلومات إضافية عن الجدول الدوري */}
             <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30">
               <CardHeader>
                 <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
@@ -2285,7 +2249,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* قسم الدروس */}
         {currentSection === 'lessons' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -2297,7 +2260,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </p>
             </div>
 
-            {/* إحصائيات الدروس */}
             <Card className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950/30 dark:to-green-950/30 border-blue-200 dark:border-blue-600/50 transition-colors duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
@@ -2472,7 +2434,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* صفحة العناصر المحسنة للأجهزة المحمولة */}
         {currentSection === 'elements' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -2498,7 +2459,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               ))}
             </div>
 
-            {/* معلومات إضافية عن التكافؤ محسنة للهواتف */}
             <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30">
               <CardHeader>
                 <CardTitle className="text-lg sm:text-xl">ما هو التكافؤ؟</CardTitle>
@@ -2527,7 +2487,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* صفحة المركبات المحسنة للأجهزة المحمولة */}
         {currentSection === 'compounds' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -2697,7 +2656,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* لعبة التكافؤ المحسنة للأجهزة المحمولة */}
         {currentSection === 'game' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -2794,7 +2752,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* صفحة توزيع الإلكترونات المتقدمة */}
         {currentSection === 'electron-distribution' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -2805,7 +2762,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 تعلم كيفية توزيع الإلكترونات على المدارات الفرعية s, p, d, f حسب المنهج المصري
               </p>
               
-              {/* نقاط وإعدادات */}
               <div className="flex justify-center items-center gap-4 mt-4 flex-wrap">
                 <div className="flex items-center gap-2">
                   <Star className="text-yellow-500" size={20} />
@@ -2817,7 +2773,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
               
-              {/* أزرار الإعدادات */}
               <div className="flex justify-center gap-2 mt-4 flex-wrap">
                 <Button
                   variant={showAdvancedMode ? "default" : "outline"}
@@ -2837,7 +2792,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* اختيار العنصر */}
             {distributionGameState === 'selecting' && (
               <Card>
                 <CardHeader>
@@ -2874,10 +2828,8 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </Card>
             )}
 
-            {/* لعبة التوزيع */}
             {selectedElementForDistribution && distributionGameState !== 'selecting' && (
               <div className="grid md:grid-cols-2 gap-8">
-                {/* معلومات العنصر */}
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
@@ -2915,7 +2867,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                       )}
                     </div>
 
-                    {/* أعداد الكم */}
                     {showOrbitalDetails && selectedElementForDistribution && (
                       <Card className="bg-blue-50 dark:bg-blue-950/20">
                         <CardHeader className="pb-2">
@@ -2962,7 +2913,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   </CardContent>
                 </Card>
 
-                {/* التوزيع الإلكتروني */}
                 <Card>
                   <CardHeader>
                     <CardTitle>
@@ -2972,7 +2922,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   <CardContent>
                     {showAdvancedMode ? (
                       <div className="space-y-3">
-                        {/* التوزيع المتقدم بالمدارات الفرعية */}
                         {getElectronConfiguration(selectedElementForDistribution.atomicNumber).map((config, index) => (
                           <div key={index} className="border rounded-lg p-3 bg-gray-50 dark:bg-gray-800">
                             <div className="flex justify-between items-center">
@@ -2995,7 +2944,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        {/* التوزيع البسيط بالأغلفة الرئيسية */}
                         {[0, 1, 2, 3, 4, 5].map((shellIndex) => {
                           const maxElectrons = [2, 8, 8, 18, 18, 32][shellIndex];
                           const currentElectrons = playerDistribution[shellIndex] || 0;
@@ -3067,7 +3015,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             )}
 
-            {/* نتائج التحقق */}
             {distributionFeedback && (
               <Card className={`${distributionFeedback.correct ? 'border-green-500 bg-green-50 dark:bg-green-950/20' : 'border-red-500 bg-red-50 dark:bg-red-950/20'}`}>
                 <CardContent className="p-6">
@@ -3108,7 +3055,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             )}
 
-            {/* القواعد التعليمية */}
             <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -3182,12 +3128,10 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {/* صفحة المساعد الذكي */}
         {currentSection === 'chatbot' && (
           <ChemistryChatbot />
         )}
 
-        {/* صفحة الاختبار المحسنة للأجهزة المحمولة */}
         {currentSection === 'quiz' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
@@ -3285,11 +3229,9 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         )}
       </div>
       
-      {/* Professional Footer */}
       <footer className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 text-white mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Logo section */}
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <FlaskConical className="w-8 h-8 text-blue-400" />
@@ -3310,7 +3252,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* Quick links */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-blue-400">Sections</h4>
               <div className="space-y-2">
@@ -3331,7 +3272,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* Features */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-purple-400">Features</h4>
               <div className="space-y-2 text-sm text-gray-300">
@@ -3354,7 +3294,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* Developer info */}
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-green-400">Developer</h4>
               <div className="space-y-2 text-sm">
@@ -3370,7 +3309,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
             </div>
           </div>
 
-          {/* Divider and copyright */}
           <div className="border-t border-gray-700 mt-8 pt-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-center md:text-left">
@@ -3388,7 +3326,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   System running perfectly
                 </div>
                 
-                {/* Rating buttons */}
                 <div className="flex gap-2">
                   <Button
                     variant="ghost"
@@ -3406,7 +3343,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
       </footer>
     </div>
 
-      {/* Dialog لعرض تفاصيل الدرس */}
       <Dialog open={isLessonDialogOpen} onOpenChange={setIsLessonDialogOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" dir="rtl">
           {selectedLessonForView && (
@@ -3421,7 +3357,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </DialogHeader>
               
               <div className="space-y-6 mt-4">
-                {/* محتوى الدرس الكامل */}
                 <div>
                   <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                     <BookOpen className="w-5 h-5 text-blue-500" />
@@ -3476,7 +3411,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   </div>
                 </div>
 
-                {/* التلخيص */}
                 <div>
                   <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                     <Brain className="w-5 h-5 text-green-500" />
@@ -3487,7 +3421,9 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   </div>
                 </div>
 
-                {/* الأسئلة */}
+
+
+                
                 <div>
                   <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                     <Award className="w-5 h-5 text-purple-500" />

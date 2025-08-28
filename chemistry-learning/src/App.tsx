@@ -2026,11 +2026,9 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
-            {/* تحسينات الموبايل - عرض العناصر بشكل مجموعات */}
             <div className="md:hidden mb-6">
               <h3 className="text-lg font-bold text-center mb-4 text-blue-600 dark:text-blue-400">عرض محسن للموبايل</h3>
               
-              {/* الهيدروجين والهيليوم */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-3 text-purple-600 dark:text-purple-400 text-base sm:text-lg">عناصر مميزة</h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">

@@ -1992,7 +1992,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   </div>
                 </div>
 
-                {/* الأكتينيدات */}
                 <div className="mb-2">
                   <div className="text-sm font-semibold text-center mb-1 text-red-600 dark:text-red-300 transition-colors">** الأكتينيدات</div>
                   <div className="grid grid-cols-15 gap-1 mx-auto" style={{ gridTemplateColumns: 'repeat(15, 70px)', width: 'fit-content' }}>
@@ -2040,7 +2039,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الفلزات القلوية */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-red-600 dark:text-red-400">الفلزات القلوية</h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
@@ -2052,7 +2050,6 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </div>
 
-              {/* الفلزات القلوية الترابية */}
               <div className="mb-4">
                 <h4 className="font-semibold mb-2 text-orange-600 dark:text-orange-400">الفلزات القلوية الترابية</h4>
                 <div className="grid grid-cols-3 gap-2">

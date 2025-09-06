@@ -1,0 +1,20 @@
+{
+  "lessons": [
+    {
+      "id": "intro-atomic-structure",
+      "title": "أساسيات الذرة ومكوناتها",
+      "summary": "الذرة نواة وإلكترونات؛ العدد الذري يحدد العنصر؛ فهم التوزيع الإلكتروني يفسر السلوك الكيميائي.",
+      "keywords": ["ذرة", "نواة", "إلكترونات", "عدد ذري"],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bohr-atom-PAR.svg/512px-Bohr-atom-PAR.svg.png",
+      "audios": [
+        "/lessons/intro-atomic-structure/فهم_الكيمياء__رحلة_من_المادة_إلى_الذرة_والتفاعلات_الجزيئية.m4a"
+      ],
+      "pdfs": [
+        "/lessons/intro-atomic-structure/mlkhs-alkymyaa-alshaml-dlyl-altalb.pdf"
+      ],
+      "content_path": "/lessons/intro-atomic-structure/content.json",
+      "exam_path": "/lessons/intro-atomic-structure/exam.json",
+      "createdAt": "2025-09-06"
+    }
+  ]
+}

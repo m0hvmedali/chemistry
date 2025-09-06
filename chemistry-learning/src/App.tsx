@@ -329,7 +329,7 @@ const ElementCard = ({ element, selectedElement, updateProgress, showEgyptianInf
                 <div className="text-xs text-blue-700 mb-1">الباب: {egyptianInfo.chapter}</div>
                 <div className="text-xs text-gray-700 mb-1">{egyptianInfo.description.substring(0, 150)}...</div>
                 <div className="text-xs text-gray-600 mb-1">الحالة الفيزيائية: {egyptianInfo.physicalState}</div>
-                <div className="text-xs text-green-700">حالات الأكسدة: {egyptianInfo.oxidationStates.join(', ')}</div>
+                <div className="text-xs text-green-700">حالات الأكسدة: {Array.isArray(egyptianInfo.oxidationStates) ? egyptianInfo.oxidationStates.join(', ') : 'غير معروفة'}</div>
                 {egyptianInfo.uses && (
                   <div className="text-xs text-purple-700 mt-1">الاستخدامات: {egyptianInfo.uses.substring(0, 120)}...</div>
                 )}
@@ -1122,7 +1122,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
       setGameScore(prev => prev + 10);
       toast.success(`صحيح! ${currentElement.name} له تكافؤ ${guessedValency}`);
     } else {
-      toast.error(`خطأ! ${currentElement.name} له تكافؤ ${currentElement.valence.join(' أو ')}`);
+      toast.error(`خطأ! ${currentElement.name} له تكافؤ ${Array.isArray(currentElement.valence) ? currentElement.valence.join(' أو ') : 'غير محدد'}`);
     }
     
     nextElement();
@@ -1276,7 +1276,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         </div>
         <div className="text-xs sm:text-sm text-muted-foreground mb-2 leading-tight group-hover:text-foreground transition-colors">{element.name}</div>
         <div className="text-[10px] sm:text-xs mb-1">
-          التكافؤ: {element.valence.join(', ')}
+          التكافؤ: {Array.isArray(element.valence) ? element.valence.join(', ') : '—'}
         </div>
         {showDetails && element.atomicMass && (
           <div className="text-[9px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
@@ -2899,11 +2899,11 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                                   <div className="text-muted-foreground">العدد الكمي الثانوي</div>
                                 </div>
                                 <div className="text-center p-2 bg-white dark:bg-gray-800 rounded">
-                                  <div className="font-semibold text-green-600 dark:text-green-300">mₗ = {quantumData.ml.join(', ')}</div>
+                                  <div className="font-semibold text-green-600 dark:text-green-300">mₗ = {Array.isArray(quantumData.ml) ? quantumData.ml.join(', ') : '—'}</div>
                                   <div className="text-muted-foreground">العدد الكمي المغناطيسي</div>
                                 </div>
                                 <div className="text-center p-2 bg-white dark:bg-gray-800 rounded">
-                                  <div className="font-semibold text-red-600 dark:text-red-300">mₛ = {quantumData.ms.join(', ')}</div>
+                                  <div className="font-semibold text-red-600 dark:text-red-300">mₛ = {Array.isArray(quantumData.ms) ? quantumData.ms.join(', ') : '—'}</div>
                                   <div className="text-muted-foreground">العدد الكمي المغزلي</div>
                                 </div>
                               </div>

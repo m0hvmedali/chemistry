@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast, Toaster } from 'sonner';
 import ChemistryChatbot from '@/components/ChemistryChatbot';
+import LessonsPage from '@/components/lessons/LessonsPage';
 import {
   Beaker,
   BookOpen,
@@ -2252,6 +2253,10 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         )}
 
         {currentSection === 'lessons' && (
+          <LessonsPage />
+        )}
+
+        {currentSection === 'lessons-old' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">

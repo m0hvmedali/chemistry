@@ -80,7 +80,7 @@ export class ChemistryChatbot {
     }
 
     if (lowerMessage.includes('كيف') || lowerMessage.includes('لماذا')) {
-      return 'هذا سؤال ممتاز! الكيمياء مليئة بالظواهر المثيرة. حدد الموضوع الذي تريد معرفة المزيد عنه وسأقدم لك شرحاً مفصلاً.';
+      return 'Great question! Chemistry is full of fascinating phenomena. Tell me the topic you want to learn more about and I'll provide a detailed explanation.';
     }
 
     if (lowerMessage.includes('مساعدة') || lowerMessage.includes('help')) {
@@ -97,7 +97,12 @@ export class ChemistryChatbot {
       'العناصر': ['ذرة', 'نواة', 'إلكترون', 'بروتون', 'نيوترون'],
       'الروابط الكيميائية': ['أيونية', 'تساهمية', 'فلزية', 'جزيء', 'مركب'],
       'الأحماض والقواعد': ['ph', 'حمضي', 'قاعدي', 'متعادل', 'هيدروجين'],
-      'التفاعلات الكيميائية': ['تفاعل', 'متفاعل', 'ناتج', 'معادلة', 'توزان']
+      'التفاعلات الكيميائية': ['تفاعل', 'متفاعل', 'ناتج', 'معادلة', 'توزان'],
+      'periodic table': ['period', 'group', 'atomic number', 'Mendeleev', 'element'],
+      'elements': ['atom', 'nucleus', 'electron', 'proton', 'neutron'],
+      'chemical bonds': ['ionic', 'covalent', 'metallic', 'molecule', 'compound'],
+      'acids and bases': ['ph', 'acidic', 'basic', 'neutral', 'hydrogen'],
+      'chemical reactions': ['reaction', 'reactant', 'product', 'equation', 'equilibrium']
     };
 
     const terms = relatedTerms[topic] || [];

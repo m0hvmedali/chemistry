@@ -27,6 +27,6 @@
     "noPropertyAccessFromIndexSignature": false,
     "exactOptionalPropertyTypes": false
   },
-  "include": ["src", "*.ts", "*.tsx"],
+  "include": ["src", "*.ts", "*.tsx", "tailwind.config.cjs"],
   "exclude": ["node_modules", "dist"]
 }

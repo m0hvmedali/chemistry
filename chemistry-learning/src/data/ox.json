@@ -1,0 +1,14 @@
+[
+    {"element":"Sc","symbol":"sc","ox_states":[3],"most_common":[3]},
+    {"element":"Ti","symbol":"ti","ox_states":[2,3,4],"most_common":[4]},
+    {"element":"V","symbol":"v","ox_states":[2,3,4,5],"most_common":[5]},
+    {"element":"Cr","symbol":"cr","ox_states":[2,3,6],"most_common":[3]},
+    {"element":"Mn","symbol":"mn","ox_states":[2,3,4,6,7],"most_common":[4]},
+    {"element":"Fe","symbol":"fe","ox_states":[2,3,6],"most_common":[3]},
+    {"element":"Co","symbol":"co","ox_states":[2,3,4],"most_common":[2]},
+    {"element":"Ni","symbol":"ni","ox_states":[2,3,4],"most_common":[2]},
+    {"element":"Cu","symbol":"cu","ox_states":[1,2],"most_common":[2]},
+    {"element":"Zn","symbol":"zn","ox_states":[2],"most_common":[2]}
+  ]
+  
+  

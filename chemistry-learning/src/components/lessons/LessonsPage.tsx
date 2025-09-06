@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -7,7 +7,7 @@ import ChartJSRenderer from './ChartJSRenderer';
 import MermaidRenderer from './MermaidRenderer';
 
 import { toast } from 'sonner';
-import { Download, FileText, Headphones, Image as ImageIcon, PlayCircle, X } from 'lucide-react';
+import { Download, Headphones, Image as ImageIcon, PlayCircle, X, SkipBack, SkipForward, Play, Pause, FileText } from 'lucide-react';
 
 // Types
 interface LessonMeta {
@@ -17,7 +17,9 @@ interface LessonMeta {
   keywords?: string[];
   image_url?: string;
   audio_url?: string;
+  audios?: Array<string | { src: string; title?: string }>;
   pdf_url?: string;
+  pdfs?: Array<string | { src: string; title?: string }>;
   content_path: string;
   exam_path?: string;
   createdAt?: string;
@@ -57,6 +59,37 @@ export default function LessonsPage() {
   const [content, setContent] = useState<LessonContent | null>(null);
   const [exam, setExam] = useState<ExamSchema | null>(null);
   const [answers, setAnswers] = useState<Record<number, number | boolean>>({});
+
+  // Audio playlist state
+  const audioList = useMemo(() => {
+    const toItem = (it: any, idx: number) => typeof it === 'string' ? { src: it, title: `مقطع صوتي ${idx + 1}` } : { src: it?.src, title: it?.title || `مقطع صوتي ${idx + 1}` };
+    if (selected?.audios && Array.isArray(selected.audios) && selected.audios.length > 0) {
+      return selected.audios.map(toItem);
+    }
+    if (selected?.audio_url) return [{ src: selected.audio_url, title: 'ملخص صوتي' }];
+    return [];
+  }, [selected]);
+  const [audioIndex, setAudioIndex] = useState(0);
+  const [playAll, setPlayAll] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => { setAudioIndex(0); }, [selected]);
+
+  // PDF list state
+  const pdfList = useMemo(() => {
+    const toItem = (it: any, idx: number) => typeof it === 'string' ? { src: it, title: `ملف PDF ${idx + 1}` } : { src: it?.src, title: it?.title || `ملف PDF ${idx + 1}` };
+    if (selected?.pdfs && Array.isArray(selected.pdfs) && selected.pdfs.length > 0) return selected.pdfs.map(toItem);
+    if (selected?.pdf_url) return [{ src: selected.pdf_url, title: 'ملف PDF' }];
+    return [];
+  }, [selected]);
+  const [pdfIndex, setPdfIndex] = useState(0);
+  const [autoRotatePdf, setAutoRotatePdf] = useState(false);
+  useEffect(() => { setPdfIndex(0); }, [selected]);
+  useEffect(() => {
+    if (!autoRotatePdf || pdfList.length <= 1) return;
+    const id = setInterval(() => setPdfIndex((i) => (i + 1) % pdfList.length), 20000);
+    return () => clearInterval(id);
+  }, [autoRotatePdf, pdfList.length]);
 
   useEffect(() => {
     (async () => {
@@ -149,25 +182,45 @@ export default function LessonsPage() {
         </Button>
       </div>
 
-      {(selected.audio_url || content?.tl_dr?.one_line) && (
+      {(audioList.length > 0) && (
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Headphones className="w-5 h-5"/>ملف صوتي وملخص سريع</CardTitle>
-            <CardDescription>استمع للملخص أو اقرأ TL;DR</CardDescription>
+            <CardTitle className="flex items-center gap-2"><Headphones className="w-5 h-5"/>قائمة الملفات الصوتية</CardTitle>
+            <CardDescription>تشغيل تلقائي بالتتابع بعد الضغط على تشغيل</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            {selected.audio_url && (
-              <audio controls className="w-full">
-                <source src={selected.audio_url} />
-              </audio>
-            )}
-            {content?.tl_dr && (
-              <div className="grid gap-2">
-                <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 border">{content.tl_dr.one_line}</div>
-                <div className="p-3 rounded-lg bg-green-50 dark:bg-green-950/30 border">{content.tl_dr.three_sentences}</div>
-                <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border">{content.tl_dr.eli12}</div>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <Button variant="outline" onClick={() => setAudioIndex((i) => (i - 1 + audioList.length) % audioList.length)}><SkipBack className="w-4 h-4"/>السابق</Button>
+              {playAll ? (
+                <Button onClick={() => { setPlayAll(false); audioRef.current?.pause(); }}><Pause className="w-4 h-4"/>إيقاف مؤقت</Button>
+              ) : (
+                <Button onClick={() => { setPlayAll(true); audioRef.current?.play().catch(()=>{}); }}><Play className="w-4 h-4"/>تشغيل الكل</Button>
+              )}
+              <Button variant="outline" onClick={() => setAudioIndex((i) => (i + 1) % audioList.length)}><SkipForward className="w-4 h-4"/>التالي</Button>
+            </div>
+            <audio key={audioIndex} ref={audioRef} controls className="w-full" autoPlay={playAll} onEnded={() => {
+              if (audioList.length > 1) setAudioIndex((i) => (i + 1) % audioList.length);
+            }}>
+              <source src={audioList[audioIndex]?.src} />
+            </audio>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {audioList.map((a, i) => (
+                <Button key={i} variant={i === audioIndex ? 'default' : 'outline'} onClick={() => setAudioIndex(i)} className="justify-start">
+                  {i === audioIndex ? '▶ ' : ''}{a.title}
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {content?.tl_dr && (
+        <Card>
+          <CardHeader><CardTitle>TL;DR</CardTitle></CardHeader>
+          <CardContent className="grid gap-2">
+            <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 border">{content.tl_dr.one_line}</div>
+            <div className="p-3 rounded-lg bg-green-50 dark:bg-green-950/30 border">{content.tl_dr.three_sentences}</div>
+            <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border">{content.tl_dr.eli12}</div>
           </CardContent>
         </Card>
       )}
@@ -261,35 +314,6 @@ export default function LessonsPage() {
         </Card>
       ))}
 
-      {content?.deliverables && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><FileText className="w-5 h-5"/>مقتطفات جاهزة</CardTitle>
-            <CardDescription>HTML + Chart.js + Mermaid</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            {(content.deliverables.html_snippets || []).map((h, i) => (
-              <div key={i} className="space-y-2">
-                <div className="text-sm text-muted-foreground">HTML</div>
-                <div className="p-3 rounded-md border bg-white dark:bg-gray-900" dangerouslySetInnerHTML={{ __html: h }} />
-                <pre className="p-3 rounded-md border overflow-auto text-xs bg-gray-50 dark:bg-gray-900"><code>{h}</code></pre>
-              </div>
-            ))}
-            {(content.deliverables.chartjs_snippets || []).map((c, i) => (
-              <div key={i} className="space-y-2">
-                <div className="text-sm text-muted-foreground">Chart.js</div>
-                <pre className="p-3 rounded-md border overflow-auto text-xs bg-gray-50 dark:bg-gray-900"><code>{c}</code></pre>
-              </div>
-            ))}
-            {(content.deliverables.mermaid_snippets || []).map((m, i) => (
-              <div key={i} className="space-y-2">
-                <div className="text-sm text-muted-foreground">Mermaid</div>
-                <pre className="p-3 rounded-md border overflow-auto text-xs bg-gray-50 dark:bg-gray-900"><code>{m}</code></pre>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      )}
 
       {content?.faq && content.faq.length > 0 && (
         <Card>
@@ -307,19 +331,34 @@ export default function LessonsPage() {
         </Card>
       )}
 
-      {selected.pdf_url && (
+      {(pdfList.length > 0) && (
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Download className="w-5 h-5"/>ملف PDF</CardTitle>
-            <CardDescription>يمكنك الاستعراض أو التحميل</CardDescription>
+            <CardTitle className="flex items-center gap-2"><Download className="w-5 h-5"/>قائمة ملفات PDF</CardTitle>
+            <CardDescription>اختر ملفًا للعرض أو فعِّل التمرير التلقائي</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="border rounded-lg overflow-hidden w-full h-[70vh]">
-              <iframe src={selected.pdf_url} className="w-full h-full" title="PDF"></iframe>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" onClick={() => setPdfIndex((i) => (i - 1 + pdfList.length) % pdfList.length)}><SkipBack className="w-4 h-4"/>السابق</Button>
+              <Button variant={autoRotatePdf ? 'default' : 'outline'} onClick={() => setAutoRotatePdf(v => !v)}>{autoRotatePdf ? 'إيقاف التمرير' : 'تشغيل التمرير'}</Button>
+              <Button variant="outline" onClick={() => setPdfIndex((i) => (i + 1) % pdfList.length)}><SkipForward className="w-4 h-4"/>التالي</Button>
             </div>
-            <div className="flex gap-2">
-              <Button asChild variant="outline"><a href={selected.pdf_url} download>تحميل PDF</a></Button>
-              <Button asChild variant="secondary"><a href={selected.pdf_url} target="_blank">فتح في تبويب جديد</a></Button>
+            <div className="border rounded-lg overflow-hidden w-full h-[70vh]">
+              <iframe key={pdfIndex} src={pdfList[pdfIndex]?.src} className="w-full h-full" title="PDF"></iframe>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {pdfList.map((p, i) => (
+                <div key={i} className={`p-2 rounded border ${i === pdfIndex ? 'bg-blue-50 dark:bg-blue-900/30' : 'bg-white dark:bg-gray-900'}`}>
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-medium truncate">{p.title}</div>
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="outline" onClick={() => setPdfIndex(i)}>عرض</Button>
+                      <Button asChild size="sm" variant="secondary"><a href={p.src} target="_blank">فتح</a></Button>
+                      <Button asChild size="sm" variant="outline"><a href={p.src} download>تحميل</a></Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>

@@ -43,7 +43,13 @@ import {
   Download,
   Eye,
   Lightbulb,
-  Settings
+  Settings,
+  User,
+  Sliders,
+  Palette,
+  Phone,
+  Mail,
+  Instagram
 } from 'lucide-react';
 
 // البيانات الكيميائية المستخرجة من PDF
@@ -363,6 +369,23 @@ export default function ChemistryLearning() {
   });
   const [elementInfoOpen, setElementInfoOpen] = useState(false);
   const [elementInfo, setElementInfo] = useState<any | null>(null);
+
+  // حساب المستخدم والإعدادات
+  const [userName, setUserName] = useState<string>('');
+  const [nameInput, setNameInput] = useState<string>('');
+  const [fontScale, setFontScale] = useState<number>(1);
+  const [saturation, setSaturation] = useState<number>(1);
+  const [temperature, setTemperature] = useState<number>(0); // درجات Hue-rotate
+
+  const applyVisualSettings = (fScale: number, sat: number, tempDeg: number) => {
+    try {
+      document.documentElement.style.fontSize = `${16 * fScale}px`;
+      document.body.style.filter = `saturate(${sat}) hue-rotate(${tempDeg}deg)`;
+      localStorage.setItem('ui:fontScale', String(fScale));
+      localStorage.setItem('ui:saturation', String(sat));
+      localStorage.setItem('ui:temperature', String(tempDeg));
+    } catch {}
+  };
   const CATEGORY_AR: Record<string, string> = {
     'alkali-metal': 'الفلزات القلوية',
     'alkaline-earth-metal': 'الفلزات القلوية الترابية',
@@ -1101,7 +1124,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
     setDistributionAttempts(0);
   };
 
-  // تحميل تفضيل الوضع الداكن من localStorage
+  // تحميل تفضيل الوضع الداكن واسم المستخدم والإعدادات المرئية من localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1112,6 +1135,25 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
+    }
+
+    const savedName = localStorage.getItem('user:name') || '';
+    setUserName(savedName);
+
+    const f = parseFloat(localStorage.getItem('ui:fontScale') || '1');
+    const s = parseFloat(localStorage.getItem('ui:saturation') || '1');
+    const t = parseFloat(localStorage.getItem('ui:temperature') || '0');
+    setFontScale(isFinite(f) ? f : 1);
+    setSaturation(isFinite(s) ? s : 1);
+    setTemperature(isFinite(t) ? t : 0);
+    applyVisualSettings(isFinite(f) ? f : 1, isFinite(s) ? s : 1, isFinite(t) ? t : 0);
+
+    const savedProgress = localStorage.getItem('user:progress');
+    if (savedProgress) {
+      try {
+        const p = JSON.parse(savedProgress);
+        setLearningProgress((prev) => ({ ...prev, ...p }));
+      } catch {}
     }
   }, []);
 
@@ -1200,15 +1242,21 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         setSelectedAnswer(null);
       } else {
         setQuizCompleted(true);
+        try {
+          const hist = JSON.parse(localStorage.getItem('user:quizHistory') || '[]');
+          hist.push({ score: quizScore + (isCorrect ? 1 : 0), total: QUIZ_QUESTIONS.length, date: new Date().toISOString() });
+          localStorage.setItem('user:quizHistory', JSON.stringify(hist));
+        } catch {}
       }
     }, 2000);
   };
 
   const updateProgress = (section, increment) => {
-    setLearningProgress(prev => ({
-      ...prev,
-      [section]: Math.min(prev[section] + increment, 100)
-    }));
+    setLearningProgress(prev => {
+      const updated = { ...prev, [section]: Math.min(prev[section] + increment, 100) };
+      try { localStorage.setItem('user:progress', JSON.stringify(updated)); } catch {}
+      return updated;
+    });
   };
 
   // دالة عرض تفاصيل الدرس
@@ -1419,7 +1467,11 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
                   { key: 'lessons', icon: BookOpen, label: 'Lessons' },
                   { key: 'game', icon: Target, label: 'Game' },
-                  { key: 'quiz', icon: Award, label: 'Quiz' }
+                  { key: 'quiz', icon: Award, label: 'Quiz' },
+                  { key: 'account', icon: User, label: 'Account' },
+                  { key: 'settings', icon: Sliders, label: 'Settings' },
+                  { key: 'terms', icon: FileText, label: 'Terms' },
+                  { key: 'contact', icon: Phone, label: 'Contact' }
                 ].map(({ key, icon: Icon, label }) => (
                   <Button
                     key={key}
@@ -1470,7 +1522,11 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                       { key: 'chatbot', icon: Bot, label: 'المساعد الذكي', desc: 'اسأل أي سؤال كيميائي واحصل على إجابة فورية' },
                       { key: 'lessons', icon: BookOpen, label: 'قسم الدروس', desc: 'اكتب واحفظ دروسك الخاصة' },
                       { key: 'game', icon: Target, label: 'لعبة التكافؤ', desc: 'اختبر معرفتك بطريقة ممتعة' },
-                      { key: 'quiz', icon: Award, label: 'الاختبار الشامل', desc: 'قيم مستواك في الكيمياء' }
+                      { key: 'quiz', icon: Award, label: 'الاختبار الشامل', desc: 'قيم مستواك في الكيمياء' },
+                      { key: 'account', icon: User, label: 'حسابي', desc: 'سجل الدخول وتابع تقدمك' },
+                      { key: 'settings', icon: Sliders, label: 'الإعدادات', desc: 'الوضع، حجم الخط، تشبع/حرارة الألوان' },
+                      { key: 'terms', icon: FileText, label: 'الأحكام والشروط', desc: 'سياسة الاستخدام' },
+                      { key: 'contact', icon: Phone, label: 'تواصل معنا', desc: 'واتساب، بريد، إنستجرام' }
                     ].map(({ key, icon: Icon, label, desc }) => (
                       <Button
                         key={key}
@@ -2626,6 +2682,114 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               ))}
             </div>
 
+          </div>
+        )}
+
+        {currentSection === 'account' && (
+          <div className="space-y-6 sm:space-y-8">
+            <Card className="max-w-2xl mx-auto">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><User className="w-5 h-5"/>حسابي</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {!userName ? (
+                  <div className="grid gap-3">
+                    <Label>ادخل اسمك</Label>
+                    <Input value={nameInput} onChange={(e)=>setNameInput(e.target.value)} placeholder="مثال: محمد علي"/>
+                    <Button onClick={()=>{ if(nameInput.trim()){ setUserName(nameInput.trim()); localStorage.setItem('user:name', nameInput.trim()); toast.success(`مرحباً ${nameInput}!`); } }}>حفظ</Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="text-lg">مرحباً، <span className="font-bold">{userName}</span> 👋</div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {Object.entries(learningProgress).map(([k,v])=> (
+                        <div key={k} className="space-y-1">
+                          <div className="flex justify-between text-sm"><span>{k==='elements'?'العناصر':k==='compounds'?'المركبات':k==='acids'?'الأحماض':'التكافؤ'}</span><span>{v}%</span></div>
+                          <Progress value={v} className="h-2"/>
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">نتائج الاختبارات الأخيرة</h4>
+                      <div className="space-y-2 text-sm">
+                        {(JSON.parse(localStorage.getItem('user:quizHistory')||'[]') as any[]).slice(-5).reverse().map((r,i)=>(
+                          <div key={i} className="p-2 rounded border flex justify-between"><span>{new Date(r.date).toLocaleString('ar')}</span><span>{r.score}/{r.total}</span></div>
+                        ))}
+                        {!(JSON.parse(localStorage.getItem('user:quizHistory')||'[]') as any[]).length && (
+                          <div className="text-muted-foreground">لا توجد نتائج بعد</div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" onClick={()=>{localStorage.removeItem('user:name'); setUserName(''); setNameInput('');}}>تغيير الاسم</Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {currentSection === 'settings' && (
+          <div className="space-y-6 sm:space-y-8 max-w-2xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Sliders className="w-5 h-5"/>الإعدادات</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>الوضع</Label>
+                    <Button onClick={toggleDarkMode}>{isDarkMode? 'الوضع الفاتح' : 'الوضع الداكن'}</Button>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>حجم الخط: {fontScale.toFixed(2)}x</Label>
+                    <input type="range" min="0.8" max="1.4" step="0.05" value={fontScale} onChange={(e)=>{ const v=parseFloat(e.target.value); setFontScale(v); applyVisualSettings(v, saturation, temperature); }} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>تشبع الألوان: {saturation.toFixed(2)}x</Label>
+                    <input type="range" min="0.5" max="1.5" step="0.05" value={saturation} onChange={(e)=>{ const v=parseFloat(e.target.value); setSaturation(v); applyVisualSettings(fontScale, v, temperature); }} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>حرارة الألوان (درجة): {temperature}°</Label>
+                    <input type="range" min="-40" max="40" step="1" value={temperature} onChange={(e)=>{ const v=parseFloat(e.target.value); setTemperature(v); applyVisualSettings(fontScale, saturation, v); }} />
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={()=>{ setFontScale(1); setSaturation(1); setTemperature(0); applyVisualSettings(1,1,0); }}>إعادة الضبط</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {currentSection === 'terms' && (
+          <div className="space-y-6 sm:space-y-8 max-w-3xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><FileText className="w-5 h-5"/>الأحكام والشروط</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm leading-7">
+                <p>باستخدامك هذا الموقع، فإنك توافق على عدم إساءة استخدام المحتوى أو إعادة نشره تجاريًا دون إذن. المحتوى التعليمي معدّ للتعلم الشخصي.</p>
+                <p>لا يتحمل الموقع مسؤولية أي استخدام خاطئ للتجارب أو المعلومات الكيميائية. اتبع قواعد السلامة دائماً.</p>
+                <p>قد نقوم بتخزين بيانات محلية على جهازك لأغراض التخصيص (مثل اسم المستخدم والتقدّم).</p>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {currentSection === 'contact' && (
+          <div className="space-y-6 sm:space-y-8 max-w-2xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Phone className="w-5 h-5"/>تواصل معنا</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex items-center gap-2"><Phone className="w-4 h-4"/> واتساب: <a className="text-blue-600" href="https://wa.me/201281320192" target="_blank">201281320192</a></div>
+                <div className="flex items-center gap-2"><Mail className="w-4 h-4"/> البريد: <a className="text-blue-600" href="mailto:mohamedalix546@gmail.com">mohamedalix546@gmail.com</a></div>
+                <div className="flex items-center gap-2"><Instagram className="w-4 h-4"/> إنستجرام: <a className="text-blue-600" href="https://instagram.com/m0hvmed_ali" target="_blank">@m0hvmed_ali</a></div>
+              </CardContent>
+            </Card>
           </div>
         )}
 

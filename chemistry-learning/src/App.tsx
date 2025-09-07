@@ -304,7 +304,7 @@ const QUIZ_QUESTIONS = [
 ];
 
 // مكون عرض عنصر واحد محسن للموبايل
-const ElementCard = ({ element, selectedElement, updateProgress, showEgyptianInfo = true }: any) => {
+const ElementCard = ({ element, selectedElement, updateProgress, showEgyptianInfo = true, onClick }: any) => {
   const egyptianInfo = EGYPTIAN_CURRICULUM_DATA[element.symbol];
   
   return (
@@ -318,26 +318,7 @@ const ElementCard = ({ element, selectedElement, updateProgress, showEgyptianInf
       }}
       onClick={() => {
         updateProgress('elements', 2);
-        toast.success(
-          <div className="text-right" dir="rtl">
-            <div className="font-bold text-base mb-2">{element.name} ({element.symbol})</div>
-            <div className="text-sm text-gray-600 mb-1">العدد الذري: {element.atomicNumber}</div>
-            <div className="text-sm text-gray-600 mb-2">الكتلة الذرية: {element.atomicMass?.toFixed(2)}</div>
-            {egyptianInfo && showEgyptianInfo && (
-              <div className="mt-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
-                <div className="text-sm font-medium text-blue-800 mb-1">معلومات المنهج المصري:</div>
-                <div className="text-xs text-blue-700 mb-1">الباب: {egyptianInfo.chapter}</div>
-                <div className="text-xs text-gray-700 mb-1">{egyptianInfo.description.substring(0, 150)}...</div>
-                <div className="text-xs text-gray-600 mb-1">الحالة الفيزيائية: {egyptianInfo.physicalState}</div>
-                <div className="text-xs text-green-700">حالات الأكسدة: {Array.isArray(egyptianInfo.oxidationStates) ? egyptianInfo.oxidationStates.join(', ') : 'غير معروفة'}</div>
-                {egyptianInfo.uses && (
-                  <div className="text-xs text-purple-700 mt-1">الاستخدامات: {egyptianInfo.uses.substring(0, 120)}...</div>
-                )}
-              </div>
-            )}
-          </div>,
-          { duration: 8000, position: 'top-center' }
-        );
+        onClick?.(element);
       }}
     >
       <div className="text-[6px] sm:text-[8px] text-muted-foreground">{element.atomicNumber}</div>
@@ -380,6 +361,72 @@ export default function ChemistryLearning() {
     acids: 0,
     valency: 0
   });
+  const [elementInfoOpen, setElementInfoOpen] = useState(false);
+  const [elementInfo, setElementInfo] = useState<any | null>(null);
+  const CATEGORY_AR: Record<string, string> = {
+    'alkali-metal': 'الفلزات القلوية',
+    'alkaline-earth-metal': 'الفلزات القلوية الترابية',
+    'transition-metal': 'الفلزات الانتقالية',
+    'post-transition-metal': 'فلزات ما بعد الانتقالية',
+    'metalloid': 'أشباه الفلزات',
+    'nonmetal': 'اللافلزات',
+    'halogen': 'الهالوجينات',
+    'noble-gas': 'الغازات النبيلة',
+    'lanthanide': 'اللانثانيدات',
+    'actinide': 'الأكتينيدات'
+  };
+  const OCCURRENCE: Record<string, string> = {
+    H: 'في الماء والمواد العضوية والغلاف الجوي (H₂).',
+    He: 'غاز نبيل نادر في الغلاف الجوي وغازات الآبار.',
+    C: 'في جميع المركبات العضوية والفحم والجرافيت والماس.',
+    N: 'غاز يشكل ~78% من الغلاف الجوي.',
+    O: 'في الماء (H₂O) والمعادن وقشرة الأرض.',
+    Na: 'في أملاح البحر (NaCl) والمعادن.',
+    Mg: 'في الدولوميت والمياه المالحة.',
+    Al: 'في البوكسيت والسيليكات (أكثر الفلزات وفرة).',
+    Si: 'في الرمال والسيليكات (من أكثر العناصر وفرة).',
+    P: 'في الفوسفات.',
+    S: 'في الكبريتات والينابيع الحارة والبراكين.',
+    Cl: 'في أملاح البحر والكلوريدات.',
+    K: 'في الأملاح والمعادن بالتربة.',
+    Ca: 'في الحجر الجيري والطباشير والعظام.',
+    Fe: 'في خامات الحديد (هيماتيت، مغنيتيت).',
+    Cu: 'في خامات النحاس (كالكوبيتريت).',
+    Zn: 'في السفاليرايت.',
+    Ag: 'في الخامات الفضية، أحيانًا حرًا.',
+    Au: 'في العروق الحرارية، أحيانًا حرًا.'
+  };
+  const openElementDetails = (element: any) => {
+    try {
+      const atomicNumber = element.atomicNumber;
+      const shellsArr = (getCorrectElectronDistribution(atomicNumber, false) as number[]) || [];
+      const shells = shellsArr.length ? shellsArr.join('-') : '—';
+      const orbitals = (getElectronConfiguration(atomicNumber) || []).map((c: any) => `${c.orbital}${c.electrons}`).join(' ') || '—';
+      const egypt = (EGYPTIAN_CURRICULUM_DATA as any)[element.symbol] || {};
+      const oxidation = Array.isArray(egypt.oxidationStates) ? egypt.oxidationStates.join(', ') : '—';
+      const physical = egypt.physicalState || '—';
+      const uses = egypt.uses || '—';
+      const compounds = COMPOUNDS.filter(c =>
+        (c.formula && c.formula.includes(element.symbol)) ||
+        (c.name && c.name.includes(element.name.split(' ')[0] || ''))
+      ).slice(0, 8);
+      const occurrence = OCCURRENCE[element.symbol] || 'غير متوفر';
+      const properties: Record<string, any> = {
+        'العدد الذري': element.atomicNumber,
+        'الكتلة الذرية': element.atomicMass ?? '—',
+        'الدورة': element.period,
+        'المجموعة': element.group,
+        'التصنيف': CATEGORY_AR[element.category] || element.category,
+        'حالات الأكسدة': oxidation,
+        'الحالة الفيزيائية': physical
+      };
+      setElementInfo({ element, shells, orbitals, properties, compounds, uses, occurrence });
+      setElementInfoOpen(true);
+    } catch (e) {
+      console.error('openElementDetails error', e);
+    }
+  };
+
   const [lessons, setLessons] = useState<any[]>([
     {
       id: 1,
@@ -1681,21 +1728,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                           }}
                           onClick={() => {
                             updateProgress('elements', 2);
-                            toast.success(
-                              <div className="text-right">
-                                <div className="font-bold text-lg">{element.name} ({element.symbol})</div>
-                                {egyptianInfo && (
-                                  <div className="mt-2 space-y-1">
-                                    <div className="text-sm font-medium">الباب: {egyptianInfo.chapter}</div>
-                                    <div className="text-xs">{egyptianInfo.description.substring(0, 100)}...</div>
-                                    {egyptianInfo.uses && (
-                                      <div className="text-xs text-blue-600">الاستخدام: {egyptianInfo.uses.substring(0, 80)}...</div>
-                                    )}
-                                  </div>
-                                )}
-                              </div>,
-                              { duration: 5000 }
-                            );
+                            openElementDetails(element);
                           }}
                         >
                           <div className="text-xs text-muted-foreground">{element.atomicNumber}</div>
@@ -2010,7 +2043,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.symbol === 'H' || el.symbol === 'He').map((element) => (
                     <div key={element.atomicNumber} className="h-16 sm:h-18 lg:h-20">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2021,7 +2054,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'alkali-metal').map((element) => (
                     <div key={element.atomicNumber} className="h-16 sm:h-18 lg:h-20">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2032,7 +2065,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-3 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'alkaline-earth-metal').map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2043,7 +2076,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-4 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'transition-metal').slice(0, 8).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2054,7 +2087,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-4 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'transition-metal').slice(8, 16).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2065,7 +2098,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-4 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'transition-metal').slice(16).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2076,7 +2109,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-4 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'metalloid').map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2087,7 +2120,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-4 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'nonmetal').map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2098,7 +2131,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-3 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'noble-gas').map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2109,21 +2142,21 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-3 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'lanthanide').slice(0, 6).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'lanthanide').slice(6, 12).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'lanthanide').slice(12).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2134,21 +2167,21 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="grid grid-cols-3 gap-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'actinide').slice(0, 6).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'actinide').slice(6, 12).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'actinide').slice(12).map((element) => (
                     <div key={element.atomicNumber} className="h-16">
-                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} />
+                      <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} onClick={openElementDetails} />
                     </div>
                   ))}
                 </div>
@@ -2251,6 +2284,57 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
             </Card>
           </div>
         )}
+
+        <Dialog open={elementInfoOpen} onOpenChange={setElementInfoOpen}>
+          <DialogContent className="max-w-2xl" dir="rtl">
+            <DialogHeader>
+              <DialogTitle>{elementInfo?.element?.name} ({elementInfo?.element?.symbol})</DialogTitle>
+              <DialogDescription>تفاصيل العنصر</DialogDescription>
+            </DialogHeader>
+            {elementInfo && (
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold mb-2">التوزيع الإلكتروني</h4>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    <div className="p-2 rounded border bg-gray-50 dark:bg-gray-800">الرئيسي: {elementInfo.shells}</div>
+                    <div className="p-2 rounded border bg-gray-50 dark:bg-gray-800">الفرعي: {elementInfo.orbitals}</div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">خصائصه</h4>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    {Object.entries(elementInfo.properties).map(([k,v]) => (
+                      <div key={k} className="p-2 rounded border">
+                        <div className="text-xs text-muted-foreground">{k}</div>
+                        <div className="font-medium">{String(v)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">أهم مركباته</h4>
+                  {elementInfo.compounds?.length ? (
+                    <div className="flex flex-wrap gap-2">
+                      {elementInfo.compounds.map((c: any, i: number) => (
+                        <span key={i} className="px-2 py-1 text-xs rounded border bg-white dark:bg-gray-900">{c.name} ({c.formula})</span>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-muted-foreground">—</div>
+                  )}
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">استخداماته</h4>
+                  <p className="text-sm">{elementInfo.uses || '—'}</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">تواجده في الطبيعة</h4>
+                  <p className="text-sm">{elementInfo.occurrence || '—'}</p>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {currentSection === 'lessons' && (
           <LessonsPage />

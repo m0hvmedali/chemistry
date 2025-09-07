@@ -2286,7 +2286,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         )}
 
         <Dialog open={elementInfoOpen} onOpenChange={setElementInfoOpen}>
-          <DialogContent className="max-w-2xl" dir="rtl">
+          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto" dir="rtl">
             <DialogHeader>
               <DialogTitle>{elementInfo?.element?.name} ({elementInfo?.element?.symbol})</DialogTitle>
               <DialogDescription>تفاصيل العنصر</DialogDescription>
@@ -2606,6 +2606,25 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </div>
             </div>
 
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-center">تقسيم حسب الفئات</h3>
+              {['noble-gas','transition-metal','metalloid','nonmetal','alkali-metal','alkaline-earth-metal','post-transition-metal','halogen','lanthanide','actinide'].map((cat) => (
+                <Card key={cat}>
+                  <CardHeader>
+                    <CardTitle>{CATEGORY_AR[cat] || cat}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                      {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === cat).sort((a,b)=>a.atomicNumber-b.atomicNumber).map((element) => (
+                        <div key={element.atomicNumber} className="h-16">
+                          <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} showEgyptianInfo={true} onClick={openElementDetails} />
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
           </div>
         )}

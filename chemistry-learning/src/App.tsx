@@ -1414,7 +1414,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 {[
                   { key: 'home', icon: Beaker, label: 'Home' },
                   { key: 'elements', icon: Atom, label: 'Elements' },
-                  { key: 'periodic-table', icon: Grid3x3, label: 'Periodic Table' },
+                  
                   { key: 'electron-distribution', icon: Settings, label: 'Electron Distribution' },
                   { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
                   { key: 'lessons', icon: BookOpen, label: 'Lessons' },
@@ -1464,7 +1464,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                     {[
                       { key: 'home', icon: Beaker, label: 'الصفحة الرئيسية', desc: 'الصفحة الرئيسية والمعلومات العامة' },
                       { key: 'elements', icon: Atom, label: 'العناصر الكيميائية', desc: 'الجدول الدوري والتكافؤات' },
-                      { key: 'periodic-table', icon: Grid3x3, label: 'الجدول الدوري التفاعلي', desc: 'جدول كامل لجميع العناصر' },
+                      
                       { key: 'electron-distribution', icon: Settings, label: 'توزيع الإلكترونات', desc: 'لعبة توزيع الإلكترونات والمدارات الفرعية' },
                       { key: 'compounds', icon: FlaskConical, label: 'المركبات الكيميائية', desc: 'الأحماض والقواعد والأملاح' },
                       { key: 'chatbot', icon: Bot, label: 'المساعد الذكي', desc: 'اسأل أي سؤال كيميائي واحصل على إجابة فورية' },
@@ -1498,7 +1498,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
             {[
               { key: 'home', icon: Beaker, label: 'Home' },
               { key: 'elements', icon: Atom, label: 'Elements' },
-              { key: 'periodic-table', icon: Grid3x3, label: 'Table' },
+              
               { key: 'electron-distribution', icon: Settings, label: 'Electrons' },
               { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
               { key: 'chatbot', icon: Bot, label: 'AI Chat' },
@@ -2536,45 +2536,77 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
-              {ELEMENTS.map((element) => (
-                <ElementCard
-                  key={element.symbol}
-                  element={element}
-                  showDetails={true}
-                  onClick={(el) => {
-                    updateProgress('elements', 5);
-                    toast.success(`تعلمت عن ${el.name}!`);
-                  }}
-                />
-              ))}
-            </div>
-
-            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30">
-              <CardHeader>
-                <CardTitle className="text-lg sm:text-xl">ما هو التكافؤ؟</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                  التكافؤ هو صفة مميزة لذرات العناصر، ويعبر عن قدرة الذرة على الارتباط مع ذرات أخرى.
-                </p>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                  <h4 className="font-semibold mb-3 text-sm sm:text-base">أمثلة على التكافؤ:</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {[
-                      { element: 'الهيدروجين', valence: 'واحد (H)', symbol: 'H' },
-                      { element: 'الأكسجين', valence: 'اثنان (O)', symbol: 'O' },
-                      { element: 'النيتروجين', valence: 'ثلاثة أو خمسة (N)', symbol: 'N' },
-                      { element: 'الكربون', valence: 'أربعة (C)', symbol: 'C' }
-                    ].map((item, index) => (
-                      <div key={index} className="text-xs sm:text-sm p-2 bg-gray-50 dark:bg-gray-700 rounded">
-                        <span className="font-medium">{item.element}:</span> تكافؤ {item.valence}
+            <div className="bg-white dark:bg-gray-900/80 p-2 sm:p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-x-auto">
+              <div className="block sm:hidden mb-4">
+                <div className="text-center mb-4">
+                  <h3 className="text-lg font-bold mb-2">عرض العناصر حسب الفئة</h3>
+                  <p className="text-sm text-muted-foreground">لعرض سريع على الجوال</p>
+                </div>
+                <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-2 mb-4">
+                  {PERIODIC_TABLE_ELEMENTS
+                    .sort((a, b) => a.atomicNumber - b.atomicNumber)
+                    .map((element) => (
+                      <div
+                        key={element.atomicNumber}
+                        className="group relative rounded-lg border-2 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg flex flex-col justify-center items-center text-center p-2 min-h-[80px]"
+                        style={{ borderColor: element.color, background: `linear-gradient(135deg, ${element.color}20, ${element.color}05)` }}
+                        onClick={() => openElementDetails(element)}
+                      >
+                        <div className="text-xs text-muted-foreground">{element.atomicNumber}</div>
+                        <div className="text-lg font-bold" style={{ color: element.color }}>{element.symbol}</div>
+                        <div className="text-xs text-muted-foreground truncate w-full">{element.name}</div>
+                        {element.atomicMass && <div className="text-[10px] opacity-60">{element.atomicMass.toFixed(1)}</div>}
                       </div>
                     ))}
+                </div>
+              </div>
+
+              <div className="hidden sm:block">
+                <div className="min-w-[600px] sm:min-w-[800px] lg:min-w-[1200px] mx-auto">
+                  {[1, 2, 3, 4, 5, 6, 7].map((period) => (
+                    <div key={period} className="grid gap-[1px] sm:gap-0.5 lg:gap-1 mb-0.5 sm:mb-1" style={{ gridTemplateColumns: 'repeat(18, minmax(20px, 1fr))' }}>
+                      {Array.from({ length: 18 }, (_, groupIndex) => {
+                        const group = groupIndex + 1;
+                        const element = PERIODIC_TABLE_ELEMENTS.find(el => el.period === period && el.group === group);
+                        return (
+                          <div key={`${period}-${group}`} className="h-8 sm:h-10 md:h-12 lg:h-14 aspect-square relative">
+                            {element ? (
+                              <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} showEgyptianInfo={true} onClick={openElementDetails} />
+                            ) : (
+                              <div className="w-full h-full"></div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+
+                  <div className="mt-4 mb-2">
+                    <div className="text-sm font-semibold text-center mb-2 text-blue-600 dark:text-blue-300">* اللانثانيدات (الدورة 6)</div>
+                    <div className="grid gap-[1px] sm:gap-0.5" style={{ gridTemplateColumns: 'repeat(15, minmax(20px, 1fr))' }}>
+                      {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'lanthanide').sort((a, b) => a.atomicNumber - b.atomicNumber).slice(0, 15).map((element) => (
+                        <div key={element.atomicNumber} className="h-8 sm:h-10 md:h-12 lg:h-14 aspect-square">
+                          <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} showEgyptianInfo={true} onClick={openElementDetails} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-2 mb-4">
+                    <div className="text-sm font-semibold text-center mb-2 text-red-600 dark:text-red-300">** الأكتينيدات (الدورة 7)</div>
+                    <div className="grid gap-[1px] sm:gap-0.5" style={{ gridTemplateColumns: 'repeat(15, minmax(20px, 1fr))' }}>
+                      {PERIODIC_TABLE_ELEMENTS.filter(el => el.category === 'actinide').sort((a, b) => a.atomicNumber - b.atomicNumber).slice(0, 15).map((element) => (
+                        <div key={element.atomicNumber} className="h-8 sm:h-10 md:h-12 lg:h-14 aspect-square">
+                          <ElementCard element={element} selectedElement={selectedElement} updateProgress={updateProgress} showEgyptianInfo={true} onClick={openElementDetails} />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+
+
           </div>
         )}
 

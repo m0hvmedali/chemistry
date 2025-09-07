@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast, Toaster } from 'sonner';
-import ChatbotHF from '@/components/chatbot/ChatbotHF';
+
 import LessonsPage from '@/components/lessons/LessonsPage';
 import {
   Beaker,
@@ -49,7 +49,8 @@ import {
   Palette,
   Phone,
   Mail,
-  Instagram
+  Instagram,
+  ExternalLink
 } from 'lucide-react';
 
 // البيانات الكيميائية المستخرجة من PDF
@@ -1468,6 +1469,8 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   { key: 'lessons', icon: BookOpen, label: 'Lessons' },
                   { key: 'game', icon: Target, label: 'Game' },
                   { key: 'quiz', icon: Award, label: 'Quiz' },
+                  { key: 'settings', icon: Sliders, label: 'Settings' },
+                  { key: 'playground', icon: ExternalLink, label: 'Playground' },
                   { key: 'account', icon: User, label: 'Account' },
                   { key: 'settings', icon: Sliders, label: 'Settings' },
                   { key: 'terms', icon: FileText, label: 'Terms' },
@@ -1519,10 +1522,12 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                       
                       { key: 'electron-distribution', icon: Settings, label: 'توزيع الإلكترونات', desc: 'لعبة توزيع الإلكترونات والمدارات الفرعية' },
                       { key: 'compounds', icon: FlaskConical, label: 'المركبات الكيميائية', desc: 'الأحماض والقواعد والأملاح' },
-                      { key: 'chatbot', icon: Bot, label: 'المساعد الذكي', desc: 'اسأل أي سؤال كيميائي واحصل على إجابة فورية' },
+
                       { key: 'lessons', icon: BookOpen, label: 'قسم الدروس', desc: 'اكتب واحفظ دروسك الخاصة' },
                       { key: 'game', icon: Target, label: 'لعبة التكافؤ', desc: 'اختبر معرفتك بطريقة ممتعة' },
                       { key: 'quiz', icon: Award, label: 'الاختبار الشامل', desc: 'قيم مستواك في الكيمياء' },
+                      { key: 'settings', icon: Sliders, label: 'الإعدادات', desc: 'الوضع، حجم الخط، تشبع/حرارة الألوان + الحساب والشروط والتواصل' },
+                      { key: 'playground', icon: ExternalLink, label: 'Playground', desc: 'واجهة LlamaIndex ضمن iFrame' },
                       { key: 'account', icon: User, label: 'حسابي', desc: 'سجل الدخول وتابع تقدمك' },
                       { key: 'settings', icon: Sliders, label: 'الإعدادات', desc: 'الوضع، حجم الخط، تشبع/حرارة الألوان' },
                       { key: 'terms', icon: FileText, label: 'الأحكام والشروط', desc: 'سياسة الاستخدام' },
@@ -1557,7 +1562,8 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               
               { key: 'electron-distribution', icon: Settings, label: 'Electrons' },
               { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
-              { key: 'chatbot', icon: Bot, label: 'AI Chat' },
+              { key: 'settings', icon: Sliders, label: 'Settings' },
+              { key: 'playground', icon: ExternalLink, label: 'Playground' }
               { key: 'lessons', icon: BookOpen, label: 'Lessons' },
               { key: 'game', icon: Target, label: 'Game' },
               { key: 'quiz', icon: Award, label: 'Quiz' }
@@ -2760,6 +2766,69 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><User className="w-5 h-5"/>حسابي</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {!userName ? (
+                  <div className="grid gap-3">
+                    <Label>ادخل اسمك</Label>
+                    <Input value={nameInput} onChange={(e)=>setNameInput(e.target.value)} placeholder="مثال: محمد علي"/>
+                    <Button onClick={()=>{ if(nameInput.trim()){ setUserName(nameInput.trim()); localStorage.setItem('user:name', nameInput.trim()); toast.success(`مرحباً ${nameInput}!`); } }}>حفظ</Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="text-lg">مرحباً، <span className="font-bold">{userName}</span> 👋</div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {Object.entries(learningProgress).map(([k,v])=> (
+                        <div key={k} className="space-y-1">
+                          <div className="flex justify-between text-sm"><span>{k==='elements'?'العناصر':k==='compounds'?'المركبات':k==='acids'?'الأحماض':'التكافؤ'}</span><span>{v}%</span></div>
+                          <Progress value={v} className="h-2"/>
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">نتائج الاختبارات الأخيرة</h4>
+                      <div className="space-y-2 text-sm">
+                        {(JSON.parse(localStorage.getItem('user:quizHistory')||'[]') as any[]).slice(-5).reverse().map((r,i)=>(
+                          <div key={i} className="p-2 rounded border flex justify-between"><span>{new Date(r.date).toLocaleString('ar')}</span><span>{r.score}/{r.total}</span></div>
+                        ))}
+                        {!(JSON.parse(localStorage.getItem('user:quizHistory')||'[]') as any[]).length && (
+                          <div className="text-muted-foreground">لا توجد نتائج بعد</div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" onClick={()=>{localStorage.removeItem('user:name'); setUserName(''); setNameInput('');}}>تغيير الاسم</Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><FileText className="w-5 h-5"/>الأحكام والشروط</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm leading-7">
+                <p>باستخدامك هذا الموقع، فإنك توافق على عدم إساءة استخدام المحتوى أو إعادة نشره تجاريًا دون إذن. المحتوى التعليمي معدّ للتعلم الشخصي.</p>
+                <p>لا يتحمل الموقع مسؤولية أي استخدام خاطئ للتجارب أو المعلومات الكيميائية. اتبع قواعد السلامة دائماً.</p>
+                <p>قد نقوم بتخزين بيانات محلية على جهازك لأغراض التخصيص (مثل اسم المستخدم والتقدّم).</p>
+              </CardContent>
+            </Card>
+
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Phone className="w-5 h-5"/>تواصل معنا</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex items-center gap-2"><Phone className="w-4 h-4"/> واتساب: <a className="text-blue-600" href="https://wa.me/201281320192" target="_blank">201281320192</a></div>
+                <div className="flex items-center gap-2"><Mail className="w-4 h-4"/> البريد: <a className="text-blue-600" href="mailto:mohamedalix546@gmail.com">mohamedalix546@gmail.com</a></div>
+                <div className="flex items-center gap-2"><Instagram className="w-4 h-4"/> إنستجرام: <a className="text-blue-600" href="https://instagram.com/m0hvmed_ali" target="_blank">@m0hvmed_ali</a></div>
+              </CardContent>
+            </Card>
           </div>
         )}
 
@@ -2788,6 +2857,22 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                 <div className="flex items-center gap-2"><Phone className="w-4 h-4"/> واتساب: <a className="text-blue-600" href="https://wa.me/201281320192" target="_blank">201281320192</a></div>
                 <div className="flex items-center gap-2"><Mail className="w-4 h-4"/> البريد: <a className="text-blue-600" href="mailto:mohamedalix546@gmail.com">mohamedalix546@gmail.com</a></div>
                 <div className="flex items-center gap-2"><Instagram className="w-4 h-4"/> إنستجرام: <a className="text-blue-600" href="https://instagram.com/m0hvmed_ali" target="_blank">@m0hvmed_ali</a></div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {currentSection === 'playground' && (
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">AI Playground</h2>
+              <p className="text-sm text-muted-foreground">واجهة LlamaIndex مدمجة — تعمل على الهاتف أيضًا</p>
+            </div>
+            <Card>
+              <CardContent className="p-0">
+                <div className="w-full h-[80vh]">
+                  <iframe src="https://cloud.llamaindex.ai/project/ed2af2a9-0ed3-4772-8add-557e1c717c39/pipeline/ce69416e-19c3-4c02-8ff3-f002ba649c90/playground" title="LlamaIndex Playground" className="w-full h-full border-0"></iframe>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -3435,9 +3520,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {currentSection === 'chatbot' && (
-          <ChatbotHF />
-        )}
+
 
         {currentSection === 'quiz' && (
           <div className="space-y-6 sm:space-y-8">

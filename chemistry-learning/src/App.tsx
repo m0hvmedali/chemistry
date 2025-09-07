@@ -448,6 +448,11 @@ export default function ChemistryLearning() {
       setElementInfoOpen(true);
     } catch (e) {
       console.error('openElementDetails error', e);
+      // افتح الحوار حتى في حال حدوث خطأ لعرض أقل قدر من المعلومات
+      try {
+        setElementInfo({ element, shells: '—', orbitals: '—', properties: { 'العدد الذري': element?.atomicNumber ?? '—' }, compounds: [], uses: '—', occurrence: '—' });
+      } catch {}
+      setElementInfoOpen(true);
     }
   };
 

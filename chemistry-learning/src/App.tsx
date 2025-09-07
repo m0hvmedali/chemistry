@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast, Toaster } from 'sonner';
-import ChemistryChatbot from '@/components/ChemistryChatbot';
+import ChatbotHF from '@/components/chatbot/ChatbotHF';
 import LessonsPage from '@/components/lessons/LessonsPage';
 import {
   Beaker,
@@ -3436,7 +3436,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
         )}
 
         {currentSection === 'chatbot' && (
-          <ChemistryChatbot />
+          <ChatbotHF />
         )}
 
         {currentSection === 'quiz' && (

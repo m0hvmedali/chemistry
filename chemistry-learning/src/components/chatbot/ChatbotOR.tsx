@@ -1,20 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Bot, Send, Settings, Database, Shield } from 'lucide-react';
+import { Bot, Send, Database } from 'lucide-react';
 
 interface KBEntry { id: string; title: string; tags?: string[]; content: string; }
 
 export default function ChatbotOR() {
   const [kb, setKb] = useState<KBEntry[]>([]);
   const [query, setQuery] = useState('');
-  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('or:apiKey') || '');
-  const [model, setModel] = useState<string>('openai/gpt-oss-120b:free');
+
   const [messages, setMessages] = useState<{ role: 'user'|'assistant'; text: string; sources?: KBEntry[] }[]>([]);
   const [loading, setLoading] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -92,32 +90,13 @@ ${context || '— لا سياق —'}
     );
   };
 
-  const callOpenRouter = async (prompt: string): Promise<string | null> => {
+  const callServer = async (prompt: string): Promise<string | null> => {
     try {
-      if (!apiKey) return null; // لا نُضمّن المفاتيح في الكود
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: 'system', content: 'كن خبير كيمياء عربي ودود، ملتزم بالدقة.' },
-            { role: 'user', content: prompt }
-          ],
-          temperature: 0.6,
-          max_tokens: 600
-        })
-      });
+      const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) });
       if (!res.ok) return null;
       const data = await res.json();
-      const content = data?.choices?.[0]?.message?.content;
-      return typeof content === 'string' ? content : null;
-    } catch {
-      return null;
-    }
+      return typeof data.text === 'string' ? data.text : null;
+    } catch { return null; }
   };
 
   const localAnswer = (q: string, hits: KBEntry[]) => {
@@ -133,7 +112,7 @@ ${context || '— لا سياق —'}
     const hits = searchKB(q);
     setMessages(prev => [...prev, { role: 'user', text: q }, { role: 'assistant', text: '... جاري توليد الإجابة ...', sources: hits }]);
     const prompt = buildPrompt(q, hits);
-    const answer = await callOpenRouter(prompt);
+    const answer = await callServer(prompt);
     setMessages(prev => {
       const m = [...prev];
       m[m.length-1] = { role: 'assistant', text: answer || localAnswer(q, hits), sources: hits };
@@ -153,10 +132,7 @@ ${context || '— لا سياق —'}
                 <div className="text-xs opacity-90">متصل الآن</div>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Input value={model} onChange={(e)=>setModel(e.target.value)} className="h-8 w-[160px] text-xs text-black" />
-              <Input type="password" value={apiKey} onChange={(e)=>{ setApiKey(e.target.value); localStorage.setItem('or:apiKey', e.target.value); }} placeholder="OpenRouter API Key" className="h-8 w-[180px] text-xs text-black" />
-            </div>
+
           </div>
 
           <div className="p-2 h-[70vh] overflow-y-auto bg-[url('https://i.imgur.com/dP8PZ0Z.png')] bg-opacity-10 dark:bg-opacity-10">
@@ -182,11 +158,7 @@ ${context || '— لا سياق —'}
               <Textarea value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="اكتب رسالتك..." className="min-h-[44px] max-h-28 text-sm"/>
               <Button onClick={ask} disabled={!query.trim()} className="bg-green-600 hover:bg-green-700"><Send className="w-4 h-4"/></Button>
             </div>
-            {!apiKey && (
-              <div className="text-[11px] text-yellow-700 bg-yellow-100 border border-yellow-300 rounded p-1 mt-2 flex items-center gap-1">
-                <Shield className="w-3 h-3"/> أدخل OpenRouter API Key (يُحفظ محليًا) لتفعيل الإجابات الذكية. بدون مفتاح ستعتمد الإجابات على قاعدة المعرفة فقط.
-              </div>
-            )}
+
           </div>
         </div>
       </div>

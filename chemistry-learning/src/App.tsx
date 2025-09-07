@@ -1563,7 +1563,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               { key: 'electron-distribution', icon: Settings, label: 'Electrons' },
               { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
               { key: 'settings', icon: Sliders, label: 'Settings' },
-              { key: 'chatbot', icon: Bot, label: 'Chat' }
+              { key: 'chatbot', icon: Bot, label: 'Chat' },
               { key: 'lessons', icon: BookOpen, label: 'Lessons' },
               { key: 'game', icon: Target, label: 'Game' },
               { key: 'quiz', icon: Award, label: 'Quiz' }

@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { toast, Toaster } from 'sonner';
 
 import LessonsPage from '@/components/lessons/LessonsPage';
+import ChatbotOR from '@/components/chatbot/ChatbotOR';
 import {
   Beaker,
   BookOpen,
@@ -49,8 +50,7 @@ import {
   Palette,
   Phone,
   Mail,
-  Instagram,
-  ExternalLink
+  Instagram
 } from 'lucide-react';
 
 // البيانات الكيميائية المستخرجة من PDF
@@ -1470,7 +1470,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                   { key: 'game', icon: Target, label: 'Game' },
                   { key: 'quiz', icon: Award, label: 'Quiz' },
                   { key: 'settings', icon: Sliders, label: 'Settings' },
-                  { key: 'playground', icon: ExternalLink, label: 'Playground' },
+                  { key: 'chatbot', icon: Bot, label: 'Chat' },
                   { key: 'account', icon: User, label: 'Account' },
                   { key: 'settings', icon: Sliders, label: 'Settings' },
                   { key: 'terms', icon: FileText, label: 'Terms' },
@@ -1527,7 +1527,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
                       { key: 'game', icon: Target, label: 'لعبة التكافؤ', desc: 'اختبر معرفتك بطريقة ممتعة' },
                       { key: 'quiz', icon: Award, label: 'الاختبار الشامل', desc: 'قيم مستواك في الكيمياء' },
                       { key: 'settings', icon: Sliders, label: 'الإعدادات', desc: 'الوضع، حجم الخط، تشبع/حرارة الألوان + الحساب والشروط والتواصل' },
-                      { key: 'playground', icon: ExternalLink, label: 'Playground', desc: 'واجهة LlamaIndex ضمن iFrame' },
+                      { key: 'chatbot', icon: Bot, label: 'المساعد', desc: 'محادثة تشبه واتساب مع معرفة محلية' },
                       { key: 'account', icon: User, label: 'حسابي', desc: 'سجل الدخول وتابع تقدمك' },
                       { key: 'settings', icon: Sliders, label: 'الإعدادات', desc: 'الوضع، حجم الخط، تشبع/حرارة الألوان' },
                       { key: 'terms', icon: FileText, label: 'الأحكام والشروط', desc: 'سياسة الاستخدام' },
@@ -1563,7 +1563,7 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
               { key: 'electron-distribution', icon: Settings, label: 'Electrons' },
               { key: 'compounds', icon: FlaskConical, label: 'Compounds' },
               { key: 'settings', icon: Sliders, label: 'Settings' },
-              { key: 'playground', icon: ExternalLink, label: 'Playground' }
+              { key: 'chatbot', icon: Bot, label: 'Chat' },
               { key: 'lessons', icon: BookOpen, label: 'Lessons' },
               { key: 'game', icon: Target, label: 'Game' },
               { key: 'quiz', icon: Award, label: 'Quiz' }
@@ -2862,17 +2862,15 @@ KMnO₄ + 5FeSO₄ + 8H₂SO₄ → MnSO₄ + 2.5Fe₂(SO₄)₃ + K₂SO₄ + 8
           </div>
         )}
 
-        {currentSection === 'playground' && (
+        {currentSection === 'chatbot' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">AI Playground</h2>
-              <p className="text-sm text-muted-foreground">واجهة LlamaIndex مدمجة — تعمل على الهاتف أيضًا</p>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">المساعد الذكي</h2>
+              <p className="text-sm text-muted-foreground">محادثة أنيقة بأسلوب واتساب + معرفة محلية</p>
             </div>
             <Card>
-              <CardContent className="p-0">
-                <div className="w-full h-[80vh]">
-                  <iframe src="https://cloud.llamaindex.ai/project/ed2af2a9-0ed3-4772-8add-557e1c717c39/pipeline/ce69416e-19c3-4c02-8ff3-f002ba649c90/playground" title="LlamaIndex Playground" className="w-full h-full border-0"></iframe>
-                </div>
+              <CardContent>
+                <ChatbotOR />
               </CardContent>
             </Card>
           </div>

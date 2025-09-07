@@ -135,7 +135,7 @@ ${context || '— لا سياق —'}
 
           </div>
 
-          <div className="p-2 h-[70vh] overflow-y-auto bg-[url('https://i.imgur.com/dP8PZ0Z.png')] bg-opacity-10 dark:bg-opacity-10">
+          <div className="p-2 h-[70vh] overflow-y-auto bg-[url(/images/chat-bg.jpg)] bg-opacity-10 dark:bg-opacity-10 bg-cover bg-center">
             {messages.map((m, i) => (
               <div key={i} className={`mb-2 flex ${m.role==='user'?'justify-end':'justify-start'}`}>
                 <div className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-7 shadow ${m.role==='user'?'bg-green-500 text-white rounded-br-none':'bg-gray-100 dark:bg-gray-800 text-foreground rounded-bl-none'}`}>
